@@ -1516,3 +1516,19 @@ main:focus {
     bottom: 24%;
   }
 }
+.journey-heading {
+  text-shadow:
+    0 2px 12px #020814,
+    0 1px 4px #020814;
+}
+@media (max-width: 600px) {
+  .journey-page {
+    min-height: 1350px;
+  }
+  .journey-heading > p {
+    color: #edf0f7;
+  }
+  .inner-page .page-title {
+    text-shadow: 0 2px 18px #010611;
+  }
+}

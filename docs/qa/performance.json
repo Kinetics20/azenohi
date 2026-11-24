@@ -1,0 +1,114 @@
+{
+  "date": "2026-11-24T20:26:17.328Z",
+  "browser": "159.0.8154.6",
+  "host": "linux 7.0.0-43-generic; Intel(R) Xeon(R) w5-2555X",
+  "profiles": [
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 900,
+      "dpr": 1,
+      "motion": "no-preference",
+      "lcp": 136,
+      "cls": 0.002703549985532408,
+      "rafFPS": 60,
+      "p95FrameMs": 16.700000000000273,
+      "transferBytes": 1154555,
+      "requests": 11,
+      "renderer": "ANGLE (NVIDIA Corporation, NVIDIA RTX 4000 Ada Generation/PCIe/SSE2, OpenGL ES 3.2)",
+      "cache": "Fresh context; localhost; no network or CPU throttling. Mobile is viewport/DPR emulation on the same desktop GPU."
+    },
+    {
+      "name": "mobile-emulation",
+      "width": 390,
+      "height": 844,
+      "dpr": 2,
+      "motion": "no-preference",
+      "lcp": 140,
+      "cls": 0.00006549775703658141,
+      "rafFPS": 60,
+      "p95FrameMs": 16.700000000000728,
+      "transferBytes": 1154555,
+      "requests": 11,
+      "renderer": "ANGLE (NVIDIA Corporation, NVIDIA RTX 4000 Ada Generation/PCIe/SSE2, OpenGL ES 3.2)",
+      "cache": "Fresh context; localhost; no network or CPU throttling. Mobile is viewport/DPR emulation on the same desktop GPU."
+    },
+    {
+      "name": "reduced",
+      "width": 1440,
+      "height": 900,
+      "dpr": 1,
+      "motion": "reduce",
+      "lcp": 84,
+      "cls": 0.002703549985532408,
+      "rafFPS": 60,
+      "p95FrameMs": 16.799999999999727,
+      "transferBytes": 373434,
+      "requests": 5,
+      "renderer": "No WebGL requested",
+      "cache": "Fresh context; localhost; no network or CPU throttling. Mobile is viewport/DPR emulation on the same desktop GPU."
+    }
+  ],
+  "navigation": [
+    {
+      "cycle": 1,
+      "heap": 6081956,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 2,
+      "heap": 6647600,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 3,
+      "heap": 6956776,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 4,
+      "heap": 7071640,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 5,
+      "heap": 7293488,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 6,
+      "heap": 7336044,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 7,
+      "heap": 7386432,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 8,
+      "heap": 7467076,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 9,
+      "heap": 7842460,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 10,
+      "heap": 7881928,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 11,
+      "heap": 7906088,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 12,
+      "heap": 7920408,
+      "canvasCount": 0
+    }
+  ]
+}

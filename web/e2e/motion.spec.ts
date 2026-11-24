@@ -1,4 +1,8 @@
 import { test, expect } from '@playwright/test';
+test.skip(
+  ({ browserName, isMobile }) => browserName !== 'chromium' || isMobile,
+  'Motion runs in desktop Chromium.',
+);
 test.beforeEach(async ({ page }, testInfo) => {
   test.skip(
     testInfo.project.name !== 'chromium',

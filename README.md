@@ -1,174 +1,208 @@
-# Application starter
+<p align="center">
+  <img src="docs/assets/readme-banner.webp" alt="AzenoHI — Hybrid Intelligence, with a rotating Earth and orbital station" width="100%" />
+</p>
 
-Gotowa templatka aplikacji: React i TypeScript w `web`, FastAPI w `api`, PostgreSQL albo SQLite oraz wspólne uruchamianie przez Docker Compose. Szkielet AI używa LangGraph, lokalnej Ollamy, Neo4j dla grafu wiedzy i źródeł oraz Qdrant dla wektorów. Strona główna ma nagłówek z odnośnikiem „Start” i wyświetla tekst „Aplikacja działa.”. Przykładowy CRUD `items` jest dostępny w API i pozostaje w kodzie frontendu do wykorzystania przy budowie aplikacji. Uwierzytelnianie i uprawnienia dodajesz do konkretnej aplikacji.
+# AzenoHI
 
-Jakość sprawdzamy lokalnie: strict TypeScript, lintowanie z informacją o typach, Prettier, Vitest, Playwright, Ruff, strict Pyright, pytest i dokumentacja. Audytu zależności ani GitHub Actions nie ma. Telemetria FastAPI, LangSmith i baz AI jest jawnie wyłączona; logi JSON i identyfikatory żądań zostają. Langfuse zapisuje świadomie skonfigurowane ślady operacji AI, domyślnie bez treści promptów i odpowiedzi.
+**People × AI. From hackathons to real impact.**
 
-## Cały projekt w Dockerze
+A space-inspired portfolio for the AzenoHI team, presenting its people, projects
+and journey. Built from the supplied visual concepts, with real HTML navigation
+and a separate Three.js scene for the rotating Earth and orbital station.
 
-Wymagany jest działający Docker z Compose co najmniej 2.23.1. Z katalogu głównego:
+<p>
+  <img src="docs/assets/icons/react.svg" alt="React" height="40" />
+  <img src="docs/assets/icons/typescript.svg" alt="TypeScript" height="40" />
+  <img src="docs/assets/icons/vite.svg" alt="Vite" height="40" />
+  <img src="docs/assets/icons/threedotjs.svg" alt="Three.js" height="40" />
+  <img src="docs/assets/icons/playwright.png" alt="Playwright browser testing" height="40" />
+</p>
 
-```bash
-make up
-```
+**Status:** private, locally verified implementation. Public hosting has not been
+deployed. Names, awards, membership counts and historical statements transcribed
+from the concepts require owner review before public release. See
+[content review](docs/content-review.md).
 
-| Adres                                | Zastosowanie                     |
-| ------------------------------------ | -------------------------------- |
-| `http://127.0.0.1:8080`              | Frontend                         |
-| `http://127.0.0.1:8000/docs`         | Swagger lokalnego API            |
-| `http://127.0.0.1:8000/health/ready` | Gotowość API i połączenie z bazą |
-| `http://127.0.0.1:8080/health/web`   | Gotowość serwera frontendu       |
-| `http://127.0.0.1:3000`              | Langfuse: ślady AI               |
-| `http://127.0.0.1:7474`              | Neo4j Browser                    |
-| `http://127.0.0.1:6333/dashboard`    | Qdrant dashboard                 |
+## Experience
 
-Przeglądarka korzysta z jednego originu. Nginx serwuje frontend i przekazuje `/api/` oraz `/health/` do FastAPI, a API łączy się z PostgreSQL. Compose czeka na bazy, wykonuje migracje SQL (`migrate`), pobiera modele (`ollama-models`) oraz tworzy constraints Neo4j i kolekcję Qdrant (`ai-init`). Potem uruchamia API i frontend. Pierwszy start pobiera modele `qwen3:0.6b` i `embeddinggemma`; potrzebuje dostępu do sieci i więcej czasu. Langfuse ma osobny PostgreSQL, ClickHouse, Redis i magazyn S3 RustFS. Te usługi inicjalizują się niezależnie od bazy aplikacji; niedostępny eksport śladów nie blokuje API. Migracje nie są efektem ubocznym importu aplikacji.
+- **Home** — layered artwork, independently rotating Earth and station, illuminated
+  windows, restrained beacon lights, pause/resume and immediate static poster.
+- **Team** — twelve supplied portraits and names, responsive cards and the
+  reference's “14+” membership statement.
+- **Projects** — six projects, with the generated Risk Miner illustration in the
+  sixth card; every card opens a real, accessible local detail page.
+- **Risk Miner** — project concept, Detect / Predict / Analyse / Support,
+  reference screenshots, project technologies and supplied team portraits.
+- **Journey** — five milestones on a mountain path, becoming a vertical timeline
+  on phones.
+- Keyboard navigation, skip link, mobile menu with Escape, focus management,
+  semantic headings and reduced-motion support.
+- WebGL, texture and context-loss fallback; rendering stops when the hero is
+  outside the viewport or the browser tab is hidden.
 
-Porty i lokalne dane połączenia można zmienić przez root `.env`, korzystając z [.env.example](.env.example). Domyślnie usługi są wystawione wyłącznie na localhost: web `8080`, API `8000`, PostgreSQL `5432`, Neo4j `7474`/`7687`, Qdrant `6333`, Ollama `11434`. Jeśli natywna Ollama zajmuje port 11434, ustaw `OLLAMA_PORT=11435` w root `.env`. Dane PostgreSQL przechowuje nazwany wolumen `postgres18-data`. Hasło trafia do sterownika przez `PGPASSWORD`, dzięki czemu znaki specjalne w haśle nie zmieniają składni adresu bazy.
+[Watch the actual browser recording](docs/assets/recordings/scene-browser.webm)
+([animated preview](docs/assets/scene-preview.webp)). The source reference MP4 is
+not used by the frontend.
 
-```bash
-make logs
-make down
-# Ponowne uruchomienie i przebudowanie:
-make up
-```
+## Screenshots
 
-`make down` zachowuje dane i modele w nazwanych wolumenach. `docker compose down -v` usuwa wszystkie lokalne dane stosu oraz pobrane modele. Kontenery API i frontendu działają bez roota, z systemem plików tylko do odczytu i zapisywalnym katalogiem tymczasowym.
+These are captures of the implemented application, not the input mockups.
+The gallery uses reduced motion for repeatable layout capture; the banner and
+browser recording show the actual procedural scene.
 
-## AI: LangGraph i dwa grafy
+| Team | Projects |
+| --- | --- |
+| ![Team page](docs/assets/screenshots/team-1672.webp) | ![Projects page including Risk Miner](docs/assets/screenshots/projects-1672.webp) |
+| Journey | Risk Miner |
+| ![Journey timeline](docs/assets/screenshots/journey-1672.webp) | ![Risk Miner project details](docs/assets/screenshots/risk-miner-1672.webp) |
 
-`PUT /api/v1/ai/documents/{uuid}` indeksuje źródło wraz z opcjonalnymi, jawnymi faktami i cytatami `evidence`. `POST /api/v1/ai/query` uruchamia LangGraph: embedding pytania → wyszukiwanie Qdrant → źródła i fakty z Neo4j → odpowiedź. SQL przechowuje status indeksowania i chroni retrieval przed częściowymi zapisami. Frontend pozostaje prostą stroną startową.
+[Mobile Home](docs/assets/screenshots/home-390.webp) ·
+[Mobile Team](docs/assets/screenshots/team-390.webp) ·
+[Mobile Projects](docs/assets/screenshots/projects-390.webp) ·
+[Mobile Journey](docs/assets/screenshots/journey-390.webp) ·
+[Mobile Risk Miner](docs/assets/screenshots/risk-miner-390.webp)
 
-```bash
-make ai-smoke
-# Ponowna jawna inicjalizacja schematu i indeksów:
-make ai-init
-```
+## Technology
 
-Poza Compose AI jest domyślnie wyłączone; można je włączyć przez `APP_AI_ENABLED=true`. [Dokumentacja AI](docs/ai.md) opisuje REST, dual graph, idempotencję, modele i wybór baz. [Przykład Vercel](api/.env.vercel.example) korzysta z zewnętrznego PostgreSQL, AuraDB Free, Qdrant Cloud Free z inference oraz Cloudflare Workers AI Free. Darmowe plany mają limity i zasady usuwania nieaktywnych zasobów, opisane w dokumentacji AI.
+| Tool | Responsibility |
+| --- | --- |
+| React 19 + TypeScript 7 | Components, typed local content, strict type checks |
+| Vite 8 + React Router 7 | Development, static production build, browser routing |
+| Three.js + React Three Fiber | Lazy-loaded 3D geometry, shaders, frame lifecycle |
+| CSS Grid / Flexbox | Responsive reference-based layouts |
+| Lucide + self-hosted Inter | UI icons and typography |
+| Vitest + Testing Library + R3F test renderer | Behavior, scene geometry and lifecycle tests |
+| Playwright + axe | Chromium, Firefox, WebKit, mobile, accessibility and failure tests |
+| Oxlint + Prettier | Type-aware lint and consistent formatting |
 
-## Langfuse
+This website has no runtime API, database, authentication, AI service or analytics.
+Python / FastAPI / Kubernetes / GCP on the Risk Miner page describe that project's
+reference concept; they are not dependencies of AzenoHI.
 
-`make up` uruchamia również Langfuse na `http://localhost:3000`. Lokalne konto:
-`developer@example.test`, hasło `Langfuse-local-only-2026`. Dane logowania i klucze
-w przykładach służą wyłącznie lokalnemu developmentowi.
+## Getting started
 
-```bash
-make langfuse-smoke
-```
-
-Ślady obejmują ingest, embedding, retrieval, graf i generowanie odpowiedzi.
-Domyślnie zapisują metadane oraz czasy wykonania. `LANGFUSE_CAPTURE_CONTENT=true`
-w root `.env` pozwala włączyć zapis treści; po zmianie odtwórz kontener API.
-Na Vercel backend korzysta z zewnętrznego Langfuse przez zmienne `APP_LANGFUSE_*`.
-[Konfiguracja, prywatność i oficjalne skille](docs/langfuse.md).
-
-## Spec-Driven Development
-
-Spec Kit 1.4.1 is configured for Codex as project skills in `.agents/skills`.
-Start in chat with `$speckit-specify` and describe the next feature. The constitution
-contains only four core principles; the stack and checks remain in the template.
-Install the CLI with `make spec-install` and verify the setup with `make spec-check`.
-[Workflow guide](docs/spec-driven.md).
-
-## Praca lokalna
-
-Official agent skills and project MCP servers are included for Codex. Run
-`make agent-install` to install their isolated CLI tools, then `make agent-check`.
-GitHub can reuse an existing `gh` login; Atlassian requires
-`make agent-login-atlassian`. See the [agent tooling guide](docs/agent-tooling.md)
-for the selected skills, credentials, and template-specific conventions.
-
-Wersje narzędzi: Node `26.13.1`, npm `12.2.2`, Python `3.14.10` i [uv](https://docs.astral.sh/uv/). Node jest zapisany w root `.nvmrc`; `uv` dobiera Pythona z `api/.python-version`.
-
-```bash
-nvm install
-nvm use
-npm install --global npm@12.2.2 --no-audit --no-fund
-make install
-make hooks
-```
-
-`make install` instaluje zależności z locków i przeglądarki Playwright: Chromium, Firefox oraz WebKit. Na Linuksie zależności systemowe przeglądarek można doinstalować poleceniem `npm --prefix web exec -- playwright install --with-deps`.
-
-W pierwszym terminalu uruchom API z lokalnym SQLite:
+Requirements: **Node.js 26.13.1** and **npm 12.2.2**, as specified by `.nvmrc` and
+`web/package.json`. Use your Node version manager or the official distribution.
+No environment file is needed.
 
 ```bash
-cd api
-uv run alembic upgrade head
-uv run uvicorn app.main:app --reload
-```
-
-W drugim terminalu, z katalogu głównego:
-
-```bash
+npm --prefix web ci
 npm --prefix web run dev
 ```
 
-Frontend będzie dostępny na `http://localhost:5173`. Vite przekazuje żądania do API na `http://127.0.0.1:8000`; `web/.env.example` opisuje zmianę adresów. Można też uruchomić tylko PostgreSQL przez `docker compose up -d postgres` i ustawić `APP_DATABASE_URL` w środowisku API. Szczegóły: [backend](api/README.md), [frontend](web/README.md).
-
-## Sprawdzenia lokalne i pre-commit
+Development: <http://127.0.0.1:5173>. For a production build:
 
 ```bash
-make check
-make e2e
-# Testy uruchomionego wcześniej zestawu Compose:
-make e2e-compose
+npm --prefix web run build
+npm --prefix web run preview
 ```
 
-`make check` wykonuje backendowe quality gates oraz frontendowy lint, formatowanie, ścisłą kontrolę typów, testy jednostkowe z coverage i produkcyjny build. Progi pokrycia wynoszą co najmniej 90%: coverage z pomiarem gałęzi w API oraz linie, instrukcje, funkcje i gałęzie frontendu.
+Production preview: <http://127.0.0.1:4173>. Both ports are strict; an occupied port
+is reported rather than terminating another process.
 
-Root pre-commit uruchamia te same kontrole jakości, dokumentację API i Chromium Playwright z produkcyjnym buildem. Hooki sprawdzają kod i nie zmieniają go automatycznie. Po sklonowaniu repozytorium aktywuj je przez `make hooks`. Ręczne wykonanie:
+On the original workstation, a separate matching toolchain is installed at
+`$HOME/.local/share/azenohi-node/bin`; add it to PATH when the shell still uses an
+older Node version. This location is not required on other machines.
+
+## Quality checks
 
 ```bash
-uv run --project api --locked pre-commit run --all-files
+npm --prefix web run check
+npm --prefix web exec -- playwright install chromium firefox webkit
+npm --prefix web run test:e2e
+make spec-check
 ```
 
-`make format` służy do świadomego formatowania kodu. Pełne testy przeglądarkowe uruchamiają się przez `make e2e`; obejmują Chromium, Firefox, WebKit i mobilny Chromium.
+`check` runs type-aware lint, formatting, strict TypeScript, unit tests with
+coverage, and the production build. All four coverage thresholds remain **90%**.
+Browser dependencies must also be available on Linux; Playwright's
+`install-deps` command can install them with system package permissions.
 
-## Playwright: dwa tryby
+Verified locally: **22 unit tests** and **24 browser tests** passed. Twelve
+intentional skips are the four dedicated WebGL scenarios on the three other
+browser projects; the main layout, keyboard and axe scenarios run on all four.
+See [verification report](docs/verification.md) for coverage, performance,
+profiles, visual review, warnings and limitations. No GitHub Actions or CI badge.
 
-Domyślny `make e2e` buduje frontend, startuje Vite preview na `4173` i oddzielne API na `8001`. API dostaje tymczasowy plik SQLite, wykonuje migracje, a po zakończeniu testów proces i dane są sprzątane. Ten tryb nie korzysta z developerskiej bazy. Wolne porty są wymagane; można je zmienić przez `E2E_WEB_PORT` i `E2E_API_PORT`.
-
-Testy sprawdzają prostą stronę główną, dostępność przez axe, brak poziomego przewijania, rzeczywiste połączenie z API przez proxy i operacje CRUD wykonywane klientem HTTP. Potwierdzają również, że strona główna wyświetla tekst bez dostępu do API. Testy sprzątają wyłącznie własne rekordy.
-
-Drugi tryb testuje działający frontend i API, na przykład Compose:
+To install the local Git hooks (requires `uv`):
 
 ```bash
-PLAYWRIGHT_BASE_URL=http://127.0.0.1:8080 npm --prefix web run test:e2e:compose
+make hooks
 ```
 
-Wtedy Playwright nie uruchamia lokalnych serwerów ani własnej bazy. Wskazana aplikacja powinna korzystać z osobnego środowiska testowego. Raport HTML trafia do `web/playwright-report`, a ślady i zrzuty nieudanych testów do `web/test-results`.
+Hooks retain lint, formatting, types, 90% unit coverage and Chromium E2E. If a
+production preview already runs, point tests at that exact build:
 
-## Wdrożenie na Vercel
+```bash
+PLAYWRIGHT_BASE_URL=http://127.0.0.1:4173 npm --prefix web run test:e2e
+```
 
-Frontend i backend można wdrożyć jako dwa projekty tego samego repozytorium:
+To reproduce the local performance capture with a running production preview:
 
-- Frontend: **Root Directory `web`**, preset **Vite**, output `dist`, komendy instalacji i builda z `web/vercel.json`. Ustaw `VITE_API_BASE_URL=https://twoje-api.example.com/api/v1` przed buildem.
-- Backend: **Root Directory `api`**, preset **FastAPI**, PostgreSQL przez `DATABASE_URL`, `APP_ENVIRONMENT=production` i `APP_DOCS_ENABLED=false`. W `APP_CORS_ALLOWED_ORIGINS` ustaw origin frontendu jako tablicę JSON, np. `["https://twoj-frontend.example.com"]`.
+```bash
+node web/scripts/measure.ts
+```
 
-`web/vercel.json` uruchamia instalację i build przez przypięty npm 12.2.2 oraz `npm ci`. Domyślny npm 11 z obrazu Node 26 na Vercel nie spełnia wymagań projektu. Pozostaw komendy zapisane w tej konfiguracji. [Wersje package managerów na Vercel](https://vercel.com/docs/package-managers).
+This writes laboratory measurements, screenshots and a browser recording under
+`docs/`. Hardware/browser information in the report should be checked when
+running on a different workstation.
 
-Dla AI skorzystaj z [api/.env.vercel.example](api/.env.vercel.example) i [instrukcji inicjalizacji](docs/ai.md#vercel-i-usługi-zewnętrzne). Modele i bazy AI działają poza funkcją Vercel.
-
-Zmienne `VITE_*` są publiczne i trafiają do przeglądarki. PostgreSQL jest wymagany na Vercel; SQLite wymaga trwałego dysku. Migracje produkcyjne wykonuj oddzielnym kontrolowanym krokiem przed udostępnieniem nowej wersji. Instrukcje i źródła: [API](api/README.md), [web](web/README.md), [zestawienie wersji](docs/versions.md).
-
-## Struktura
+## Project structure
 
 ```text
-api/                 FastAPI, modele, migracje, testy i lokalne gates
-web/src/app/         Składanie aplikacji i providery
-web/src/features/    Moduły funkcjonalne, na początek items
-web/src/shared/      Klient API i wspólne komponenty
-web/e2e/             Testy Playwright prawdziwego przepływu aplikacji
-api/src/app/modules/ai/   Kontrakty, ingest, LangGraph i rejestr SQL
-api/src/app/platform/ai/  Adaptery Ollama / chat API, Neo4j, Qdrant
-compose.yaml         Bazy i modele → migracje / indeksy → API → frontend
-.pre-commit-config.yaml
+web/
+  src/app/                 Routing and route focus
+  src/components/layout/  Brand, header, shared typography and icons
+  src/components/scene/   Motion policy, procedural geometry, shaders and canvas
+  src/pages/               Home, Team, Projects, Journey and project details
+  src/data/                Supplied content in typed modules
+  src/styles/              Design tokens, typography and responsive layouts
+  public/images/           Optimized production artwork
+  public/textures/         Attributed Earth maps
+  e2e/                     Browser and WebGL verification
+  scripts/                 Reproducible measurement script
+specs/001-azenohi-website/  Specification, plan, tasks and acceptance review
+.specify/                  Retained Spec Kit configuration
+design/                    Original references and texture masters; not served
+generated_images/          Preserved generated artwork masters; not served
+docs/                      Provenance, decisions, screenshots and evidence
 ```
 
-W [docs/versions.md](docs/versions.md) opisano wersje zweryfikowane 17 listopada 2026 r. oraz granice zgodności runtime i narzędzi.
+Edit project, team and milestone content in `web/src/data/content.ts`. The first
+five project detail views deliberately contain only the supplied descriptions;
+add verified links and richer project information there when available.
 
-## Wynik weryfikacji
+The scene is a separate chunk, loaded only on Home when motion is permitted.
+Repeated station modules and windows are instanced. A night-side mask controls
+city emission, and a fixed tilt is separate from local station rotation.
+[Motion reference notes](docs/motion-reference.md) distinguish observation from
+artistic approximations; the short source video does not establish exact periods.
 
-Zakres i wyniki testów API, integracji AI, kontenerów, frontendu i lokalnego pre-commit opisuje [raport weryfikacji](docs/verification.md). Testy chmurowe wymagają własnych zasobów i kluczy dostawców.
+Use [asset provenance](docs/assets.md) and [generation notes](docs/generated-assets.md)
+when replacing artwork. Keep masters, preserve alpha, optimize variants, and
+check them in the rendered cards. Never place whole mockups behind invisible links.
+
+## Deployment preparation
+
+`web/vercel.json` is prepared for a static Vite deployment: project root `web`,
+build `npm run build`, output `dist`, and SPA rewrites for readable routes.
+No deployment was performed. When hosting is explicitly requested, verify direct
+entry and refresh for `/team`, `/projects`, `/journey` and `/projects/risk-miner`.
+Do not introduce a `gh-pages` branch or GitHub Actions under the current policy.
+
+## Credits and reuse
+
+Adapted from the application starter maintained by **Paweł Konior**, used with
+the user's confirmed permission. [Source revision and import process](docs/template-origin.md).
+The source repository was not modified; this is an independent repository.
+
+Earth maps: **Solar System Scope / INOVE**, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/),
+converted to WebP and shaded for this scene. Inter: SIL OFL 1.1. Lucide: ISC.
+Simple Icons marks: CC0. Playwright icon: Microsoft Playwright, Apache-2.0.
+Relevant notices are retained in [docs/licenses](docs/licenses).
+
+No root license was present in the approved starter, and no blanket MIT license
+has been added to this code or the supplied artwork. The owner's permission to
+reuse the starter does not automatically grant rights to redistribute every asset.
+Review [asset provenance](docs/assets.md) and [content status](docs/content-review.md)
+before public publication or reuse.

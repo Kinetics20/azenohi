@@ -22,8 +22,7 @@ Tests that modify data must use isolated test resources.
 
 Changes must pass the template's local checks and pre-commit hooks.
 Match testing to the scope and risk of the change. Keep diagnostic logs.
-Explicitly configured AI observability in Langfuse is allowed; keep unrelated
-telemetry disabled. Do not add dependency audits or GitHub Actions.
+Keep runtime telemetry disabled for the AzenoHI portfolio. Do not add dependency audits or GitHub Actions.
 
 ## Governance
 

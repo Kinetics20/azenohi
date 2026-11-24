@@ -33,7 +33,7 @@ Retrieved 2026-11-24:
 - https://www.solarsystemscope.com/textures/download/2k_earth_clouds.jpg
 
 Original JPEGs remain in design/textures/. Production WebP variants are in
-web/public/textures/. Changes: lossy WebP encoding; lighting and color treatment
+web/public/textures/. Changes: lossy WebP encoding, clouds resized to 1024×512; lighting and color treatment
 applied by the Earth shader. No ownership of these maps is claimed.
 
 ## Code-native visuals and typography
@@ -48,3 +48,7 @@ applied by the Earth shader. No ownership of these maps is claimed.
 
 Keep production assets out of design/reference/ and preserve masters when replacing
 variants. Inspect decoded images and rendered cards after any asset change.
+
+Playwright README mark: Microsoft Playwright appIcon.png from the official GitHub
+repository (packages/playwright-core/src/server/chromium/appIcon.png), Apache-2.0;
+notice retained in docs/licenses.

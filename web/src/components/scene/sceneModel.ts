@@ -215,6 +215,7 @@ export function disposeScene(model: SceneModel) {
   const geometries = new Set<THREE.BufferGeometry>();
   const materials = new Set<THREE.Material>();
   model.root.traverse((object) => {
+    if (object instanceof THREE.InstancedMesh) object.dispose();
     if (isMesh(object)) {
       geometries.add(object.geometry);
       for (const material of Array.isArray(object.material) ? object.material : [object.material])

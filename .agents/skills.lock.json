@@ -3,54 +3,6 @@
   "verifiedAt": "2026-11-18",
   "skills": [
     {
-      "name": "fastapi",
-      "repository": "fastapi/fastapi",
-      "ref": "a3260d49e97b0072c4c0c161d9f63cc3826584b5",
-      "path": "fastapi/.agents/skills/fastapi",
-      "license": "MIT",
-      "license_path": ".agents/skills/fastapi/LICENSE",
-      "auxiliaryFiles": [
-        {
-          "path": ".agents/skills/fastapi/LICENSE",
-          "sourcePath": "LICENSE",
-          "sha256": "4ec89ffc81485b97fec584b2d4a961032eeffe834453894fd9c1274906cc744e"
-        }
-      ],
-      "installedPath": ".agents/skills/fastapi"
-    },
-    {
-      "name": "langchain-build-agent",
-      "repository": "langchain-ai/langchain-skills",
-      "ref": "51bbd97b911871406d2a0099dd29df0d55ff9897",
-      "path": "skills/langchain-build-agent",
-      "license": "MIT",
-      "license_path": ".agents/skills/langchain-build-agent/LICENSE",
-      "auxiliaryFiles": [
-        {
-          "path": ".agents/skills/langchain-build-agent/LICENSE",
-          "sourcePath": "LICENSE",
-          "sha256": "4ec67e4ca6e6721dba849b2ca82261597c86a61ee214bbf21416006b7b2d0478"
-        }
-      ],
-      "installedPath": ".agents/skills/langchain-build-agent"
-    },
-    {
-      "name": "langfuse",
-      "repository": "langfuse/skills",
-      "ref": "f0bcb13088b490c04b3f4870bace17f6d57b199c",
-      "path": "skills/langfuse",
-      "license": "MIT",
-      "license_path": ".agents/skills/langfuse/LICENSE",
-      "auxiliaryFiles": [
-        {
-          "path": ".agents/skills/langfuse/LICENSE",
-          "sourcePath": "LICENSE",
-          "sha256": "c516c4e125d1c11a13637602a8e0b88c1453b07b209277b4db1fe3e3e3c380fa"
-        }
-      ],
-      "installedPath": ".agents/skills/langfuse"
-    },
-    {
       "name": "playwright-cli",
       "repository": "microsoft/playwright-cli",
       "ref": "99c4eb2566153f37fb104e5dbf894fb9c785e17d",
@@ -65,22 +17,6 @@
         }
       ],
       "installedPath": ".agents/skills/playwright-cli"
-    },
-    {
-      "name": "postgres-best-practices",
-      "repository": "neondatabase/postgres-skills",
-      "ref": "27fe45e0f71ea89a6eaf9ea4d2e4068957c81c26",
-      "path": "skills/postgres-best-practices",
-      "license": "Apache-2.0",
-      "license_path": ".agents/skills/postgres-best-practices/LICENSE",
-      "auxiliaryFiles": [
-        {
-          "path": ".agents/skills/postgres-best-practices/LICENSE",
-          "sourcePath": "LICENSE",
-          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
-        }
-      ],
-      "installedPath": ".agents/skills/postgres-best-practices"
     },
     {
       "name": "pull-request-authoring",
@@ -113,22 +49,6 @@
         }
       ],
       "installedPath": ".agents/skills/pull-request-review-feedback"
-    },
-    {
-      "name": "qdrant-advisor",
-      "repository": "qdrant/skills",
-      "ref": "5f9622219114df85877e9ea88479feac54a466cf",
-      "path": "meta/qdrant-advisor",
-      "license": "Apache-2.0",
-      "license_path": ".agents/skills/qdrant-advisor/LICENSE",
-      "auxiliaryFiles": [
-        {
-          "path": ".agents/skills/qdrant-advisor/LICENSE",
-          "sourcePath": "LICENSE",
-          "sha256": "210b508429e913d9de5301f90508bc2cbf5b2281de5b45e607c04d58f0f3bd8f"
-        }
-      ],
-      "installedPath": ".agents/skills/qdrant-advisor"
     },
     {
       "name": "search-company-knowledge",

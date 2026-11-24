@@ -18,11 +18,18 @@ export function mockBrowser(reduced = true) {
   let intersection: IntersectionObserverCallback | undefined;
   const disconnect = vi.fn<() => void>();
   const observer: IntersectionObserver = {
-    root:null,rootMargin:'0px',scrollMargin:'0px',thresholds:[0],
-    observe:vi.fn<() => void>(),unobserve:vi.fn<() => void>(),disconnect,takeRecords:()=>[],
+    root: null,
+    rootMargin: '0px',
+    scrollMargin: '0px',
+    thresholds: [0],
+    observe: vi.fn<() => void>(),
+    unobserve: vi.fn<() => void>(),
+    disconnect,
+    takeRecords: () => [],
   };
-  class Observer {
-    constructor(callback: IntersectionObserverCallback) { intersection = callback; return observer; }
+  function Observer(callback: IntersectionObserverCallback) {
+    intersection = callback;
+    return observer;
   }
   vi.stubGlobal('IntersectionObserver', Observer);
   return {

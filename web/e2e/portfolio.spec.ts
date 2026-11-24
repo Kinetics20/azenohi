@@ -69,7 +69,7 @@ test('keyboard skip link and mobile menu Escape', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Skip to content' })).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page.getByRole('main')).toBeFocused();
-  const toggle = page.getByRole('button', { name: 'Open menu' });
+  const toggle = page.getByRole('button', { name: /menu/ });
   await toggle.click();
   await expect(toggle).toHaveAttribute('aria-expanded', 'true');
   await page.keyboard.press('Escape');

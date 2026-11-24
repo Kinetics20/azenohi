@@ -1,0 +1,206 @@
+{
+  "browser": "159.0.8154.6",
+  "description": "40 SPA Home → Projects cycles, 700ms cleanup wait and explicit GC after every exit; same document, cached textures",
+  "samples": [
+    {
+      "cycle": 1,
+      "heap": 6066640,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 2,
+      "heap": 6628880,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 3,
+      "heap": 6941496,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 4,
+      "heap": 7066668,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 5,
+      "heap": 7277744,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 6,
+      "heap": 7322400,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 7,
+      "heap": 7379220,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 8,
+      "heap": 7457440,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 9,
+      "heap": 7835984,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 10,
+      "heap": 7876184,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 11,
+      "heap": 7911308,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 12,
+      "heap": 7915300,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 13,
+      "heap": 7934236,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 14,
+      "heap": 7987832,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 15,
+      "heap": 8013032,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 16,
+      "heap": 8021684,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 17,
+      "heap": 8043272,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 18,
+      "heap": 8061864,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 19,
+      "heap": 8054168,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 20,
+      "heap": 8066092,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 21,
+      "heap": 8074232,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 22,
+      "heap": 8078668,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 23,
+      "heap": 8172724,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 24,
+      "heap": 8185876,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 25,
+      "heap": 8190424,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 26,
+      "heap": 8197484,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 27,
+      "heap": 8218500,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 28,
+      "heap": 8222768,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 29,
+      "heap": 8236756,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 30,
+      "heap": 8246624,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 31,
+      "heap": 8257788,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 32,
+      "heap": 8286340,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 33,
+      "heap": 8315752,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 34,
+      "heap": 8317864,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 35,
+      "heap": 8333688,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 36,
+      "heap": 8346776,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 37,
+      "heap": 8378896,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 38,
+      "heap": 8382768,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 39,
+      "heap": 8392104,
+      "canvasCount": 0
+    },
+    {
+      "cycle": 40,
+      "heap": 8394792,
+      "canvasCount": 0
+    }
+  ]
+}

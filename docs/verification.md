@@ -1,143 +1,139 @@
-# Wyniki weryfikacji
+# Verification report — 24 November 2026
 
-Weryfikacja wykonana 17 listopada 2026 r. na macOS ARM64, Node 26.13.1, npm 12.2.2 i Python 3.14.10. Kontenery zbudowano i uruchomiono przez Docker Compose.
+## Delivered scope
 
-| Obszar                                                       | Wynik                                                                                                              |
-| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| API: poprzednia pełna weryfikacja SQLite/PostgreSQL i baz AI | 263 testy, wszystkie przeszły                                                                                      |
-| API: coverage z pomiarem linii i gałęzi                      | 96,70%, wymagane co najmniej 90%                                                                                   |
-| Web: Vitest i Testing Library                                | 29 testów, wszystkie przeszły                                                                                      |
-| Web: coverage                                                | 98,49% instrukcji, 94,89% gałęzi, 100% linii i funkcji                                                             |
-| Playwright: produkcyjny build + izolowane SQLite API         | 12 scenariuszy, wszystkie przeszły                                                                                 |
-| Playwright: Nginx + FastAPI + PostgreSQL w Compose           | 12 scenariuszy, wszystkie przeszły                                                                                 |
-| Przeglądarki                                                 | Chromium, Firefox, WebKit, mobilny Chromium                                                                        |
-| Dostępność                                                   | Automatyczne testy axe WCAG 2/2.1 A i AA oraz szerokość widoku                                                     |
-| Lokalne quality gates                                        | Ruff, format, strict Pyright, Oxlint type-aware, strict TypeScript, Prettier i Sphinx z ostrzeżeniami jako błędami |
-| Pre-commit                                                   | Wszystkie 11 hooków przeszły; hook E2E obejmuje Chromium i build produkcyjny                                       |
-| Kontenery                                                    | Build API i web przeszedł; 12 usług healthy; migracje, modele, indeksy i inicjalizacja S3 exit 0                   |
-| Restart                                                      | Rekord PostgreSQL przetrwał restart bazy, API i Nginx; odczyt i usunięcie po powrocie gotowości przeszły           |
-| Hasła bazy                                                   | Potwierdzono połączenie z hasłem zawierającym znaki specjalne przez PGPASSWORD, bez umieszczania hasła w URI       |
-| Wersje npm                                                   | Wszystkie 22 bezpośrednie zależności zgadzały się z tagiem latest stabilnego wydania                               |
-| Vercel API                                                   | Import entrypointu bez połączenia z bazą, NullPool i wyłączona dokumentacja produkcyjna                            |
+Local production build at http://127.0.0.1:4173, development at
+http://127.0.0.1:5173 while its server is running. Repository:
+https://github.com/Kinetics20/azenohi (private, independent, default branch main).
+The final delivery commit SHA is reported in the task completion message and can
+be reproduced with `git rev-parse HEAD`. No public hosting deployment was made.
 
-Testy API obejmują migracje upgrade, kontrolę zgodności schematu, downgrade i ponowny upgrade dla obu silników. Do testów PostgreSQL utworzono osobną bazę, która została usunięta po zakończeniu. Testy przeglądarkowe sprawdzają stronę z tekstem „Aplikacja działa.”, połączenie API przez proxy, CRUD klienta HTTP i niezależność strony od API. Sprzątają wyłącznie własne rekordy.
+## Stage acceptance
 
-W teście restartów poprawiono healthcheck frontendu: stan healthy wymaga również poprawnej odpowiedzi API przez proxy.
+| Stage | Evidence |
+| --- | --- |
+| 0 — Materials | Six copies match the untouched Downloads originals; reference-manifest.json. All five mockups inspected. FFmpeg-decoded video sequence and enlarged station views inspected; motion-reference.md. |
+| 1 — Bootstrap | Initial commit 9baa5f325352ecf4fceab49e84f4a39ec9173ec4 retains the approved main snapshot. Source SHA 14b2ec9fdd82ac88ce50edb538efde0126f73a3c matches the plan. Verified authenticated login Kinetics20, private repository, isFork false, only main, origin points to owner. |
+| 2 — Specification | Spec Kit resolver used; English specification, plan, checklist, tasks and ADR 001. No extra branch, reinitialization or blocking clarification. |
+| 3 — Adaptation | Standalone frontend; removed API CRUD, query client, backend services, proxy, obsolete containers, AI tools and dead hook commands. Strict typing, lint, format and four 90% coverage gates preserved. |
+| 4 — Static Home | Separate generated poster, sky and transparent foreground; actual HTML text/logo/navigation; responsive layout. |
+| 5 — Motion | Procedural Three.js Earth and station; instanced modules/windows, night masking, point light and emissive beacons. Browser recording and separate motion tests. |
+| 6 — Views | Home, Team, Projects, Journey, Risk Miner and five honest project overview routes, plus 404. Sixth card uses the supplied Risk Miner thumbnail. |
+| 7 — Refinement | Responsive screenshots at all five requested widths; cross-browser axe and keyboard checks; motion failures; performance and repeated-navigation inspection. |
+| 8 — Documentation | English README, local technology icons, real screenshots/banner/video, setup, content review, asset attribution and license notices. |
+| 9 — Delivery | Local gates and hooks pass. Final commit/push and remote SHA verification are recorded in the completion message. |
 
-Uruchomienie samego pre-commit bez TEST_DATABASE_URL korzysta z SQLite i pomija dwa warianty PostgreSQL oraz dwa testy realnych adapterów AI. Pełny test z osobną bazą PostgreSQL 18.7 wykonano niezależnie. Telemetria platform pozostaje wyłączona; jawny eksport operacji AI do Langfuse jest oddzielną konfiguracją. Nie uruchamiano audytu zależności ani GitHub Actions.
+## Commands actually executed
 
-Instalację i build frontendu z `web/vercel.json` sprawdzono również w czystym kontenerze Node 26 startującym z npm 11, z plikami odpowiadającymi uploadowi Vercel. Przypięty npm 12.2.2 uruchomiony przez npx wykonał `npm ci` i produkcyjny build poprawnie.
+- `npm --prefix web ci`: PASS with Node 26.13.1 and npm 12.2.2.
+- `npm --prefix web run check`: PASS — type-aware Oxlint, Prettier, strict
+  TypeScript, 22 unit tests and production build.
+- Coverage: statements **99.28%**, branches **97.43%**, functions **98.38%**,
+  lines **99.22%**. All four thresholds remain at 90%; no new coverage exclusions.
+- `npm --prefix web run test:e2e`: PASS, **24 passed / 12 intentional skips**.
+  Chromium, Firefox, WebKit and mobile Chromium run the five shared scenarios.
+  Four real WebGL/failure scenarios run only on desktop Chromium. The other
+  three projects each skip these four tests; they still run layout and axe.
+- `make spec-check`: PASS.
+- `make hooks`: installed local hooks. `uvx --from pre-commit pre-commit run
+  --all-files`: all five gates PASS, including production-browser verification.
+- `npm --prefix web run dev`: served port 5173.
+- `npm --prefix web run preview`: served the built output at port 4173.
+- README: all 27 local references/asset paths checked; banners, gallery images,
+  badges and recording exist. No invented live-demo URL or CI badge.
 
-Konfiguracja Vercel jest przygotowana do wdrożenia. Weryfikacja nie obejmowała publikacji aplikacji na koncie Vercel. Aktualne wersje i źródła opisuje [versions.md](versions.md).
+Raw check and E2E logs are in `docs/qa/`. HTML/trace reports remain locally ignored
+under web/playwright-report and web/test-results.
 
-## LangGraph i bazy AI
+## Browser and accessibility evidence
 
-Uruchomiono rzeczywiste Neo4j Community 2026.10.2, Qdrant 1.20.2 i Ollamę 0.40.16. Compose pobrał qwen3:0.6b i embeddinggemma do trwałego wolumenu. Jawne zadanie `ai-init` utworzyło constraints i kolekcję bez DDL podczas importu lub requestów.
+Shared scenarios verify direct navigation and refresh of all primary routes,
+image decoding, active links, logo, project order, six detail links, Back/Forward,
+404 recovery, keyboard skip link, route focus, mobile menu, Escape, and no
+horizontal overflow at **360, 390, 768, 1440 and 1672 pixels**. Axe reports zero
+WCAG 2 A/AA and 2.1 AA violations on the five main views in all four projects.
 
-`make ai-smoke` sprawdził ingest, ponowienie identycznego zapisu, status SQL, konflikt zmienionej treści, odpowiedź rzeczywistej Ollamy ze źródłem i faktem oraz izolację namespace. Smoke zachowuje jeden własny dokument w `template_smoke`. Dwa niezależne testy prawdziwych adapterów sprawdziły oba grafy, krawędzie NEXT, zachowanie proweniencji, izolację namespace i profilu embeddingów, konflikt hasha oraz usuwanie źródła bez usuwania współdzielonej encji. Własne kolekcje i namespace’y testowe zostały posprzątane.
+The dedicated Chromium run uses software WebGL and compares pixels in separate
+Earth and station regions over time. It verifies the canvas becomes pixel-stable
+on pause, resumes, and switches to the poster on real WEBGL_lose_context loss.
+Texture requests are aborted to test loader failure; disabled WebGL and delayed
+textures preserve HTML and navigation. No backend requests or 3D chunk are sent
+in reduced-motion mode. Unit tests exercise visibility, intersection and media
+preference changes, listeners, delta-based transforms and resource disposal.
 
-Testy jednostkowe obejmują przerwania i retry indeksowania, wyścig dwóch sesji SQL, zachowanie statusu ready przy spóźnionej awarii, brak źródeł bez generowania odpowiedzi, nieznane cytowania, niezaufany kontekst w user message, limity i anulowanie żądań, zamykanie transportów oraz wyłączenie LangSmith mimo tracingu w środowisku hosta.
+WebKit initially lacked libavif.so.16 and libgav1.so.2 on the workstation.
+Official Ubuntu packages were downloaded and extracted without root into
+`$HOME/.local/share/azenohi-browser-libs`, with required libraries copied into the
+Playwright WebKit cache's existing sys/lib search path. System libraries/settings
+were not changed. WebKit then completed all five shared scenarios successfully.
 
-Wyłączono telemetry Neo4j server/driver, raportowanie użycia, Fleet Manager, discovery i telemetry klientów, a także Qdrant telemetry oraz Ollama Cloud. JSON logi aplikacji pozostały włączone. Neo4j zaakceptował konfigurację; po restarcie nie zgłaszał włączonego discovery.
+## Visual review
 
-Wykryto, że istniejący test migracji pozwalał wskazać zwykłą bazę aplikacji. Dodano wymóg nazwy `test_*` i testy odrzucające bazy aplikacyjne/systemowe przed uruchomieniem migracji. Schemat lokalnej bazy Compose został odtworzony po omyłkowym teście downgrade; docelowy przebieg wykonano na oddzielnej `test_template_ai`.
+Compared implemented pages at 1672×941 against the supplied designs, and
+inspected long mobile screenshots at 390×844. Reviewed the live 3D Home separately
+from deterministic reduced-motion layouts. Captures live in docs/assets/screenshots.
 
-Przykładowe ustawienia Vercel przechodzą walidację dla zewnętrznych TLS/HTTPS endpointów i PostgreSQL z NullPool. Nie wykonano deploymentu ani rzeczywistych wywołań AuraDB, Qdrant Cloud, Neon lub Cloudflare Workers AI. Kontrakty HTTP obu providerów i konfigurację chmurową sprawdzono lokalnie; limity planów udokumentowano z oficjalnych źródeł w [ai.md](ai.md).
+- Home retains headline hierarchy, red accents, upper-right station, curved Earth
+  horizon and the original seated human/robot composition. UI remains HTML.
+- Team preserves names/order/portraits and the two-row desktop composition, with
+  two-column cards on mobile. No generated replacement faces.
+- Projects uses three desktop columns and six functional cards. Risk Miner has
+  its supplied transparent illustration and HackNation 2026, without an award.
+- Journey retains the mountain, red path and five HTML milestones; mobile uses
+  a vertical timeline. Text shadow added after visual inspection for contrast.
+- Risk Miner has the concept image, four capabilities, three reference screens,
+  technology and unnamed reference portraits. The station was removed from this
+  view's backdrop after it overlapped the risk panels in the first review.
 
-LangSmith 0.15.0 zgłasza na Pythonie 3.14 ostrzeżenie deprecacji `asyncio.iscoroutinefunction`. Testy przechodzą; ostrzeżenie pozostaje widoczne i dotyczy zależności pośredniej.
+This is a reference-based recreation, not a pixel-identical rendering. The live
+station is a custom procedural model with simpler surfaces than the cinematic
+source; Earth textures are attributed maps, not a reproduction of the source
+film's generated surface. The immediate poster is more photographic than the
+live geometry. These distinctions are deliberate and visible in the recording.
 
-## Spec Kit for Codex
+## Performance
 
-Official Spec Kit 1.4.1 was installed from the pinned GitHub tag. `make spec-check`
-passes: the CLI version matches, the Codex integration is valid, all managed files
-are present and match their manifests, all six Bash scripts pass syntax checks,
-and template resolution and feature-creation dry runs work.
+Measurement: production Vite preview over localhost, fresh browser contexts,
+no network/CPU throttling, Chromium 159.0.8154.6, Ubuntu 26.04.1, Intel Xeon
+w5-2555X, NVIDIA RTX 4000 Ada Generation (driver 580.178.04), actual WebGL renderer
+confirmed as ANGLE/NVIDIA/OpenGL ES 3.2. Four-second requestAnimationFrame samples
+are taken after scene readiness. Values are laboratory observations, not field
+percentiles or proof of performance on real phones.
 
-An isolated temporary directory was used to verify feature creation, persistence
-of the current-feature pointer, plan preparation, task-template resolution, and
-required-artifact checks. The fixture was removed; no test specification or
-current-feature pointer was created in the repository.
+| Profile | LCP | CLS | Frame cadence | Resource transfer |
+| --- | --- | --- | --- | --- |
+| Desktop 1440×900, DPR 1, GPU scene | 136 ms | 0.00270 | 60.0 FPS; p95 16.7 ms | 1,154,555 bytes |
+| Mobile viewport 390×844, DPR 2, same desktop GPU | 140 ms | 0.0000655 | 60.0 FPS; p95 16.7 ms | 1,154,555 bytes |
+| Reduced motion, desktop poster | 84 ms | 0.00270 | No animated canvas; browser cadence 60 FPS | 373,434 bytes |
 
-Local Codex 0.169.0 discovered exactly nine project `speckit-*` skills through
-`app-server` and a `skills/list` request. All were enabled, with no errors.
-Verification did not invoke a model or change the global Codex configuration.
-The default Makefile target remains `install`. Application code, runtime
-dependencies, and deployment configuration were unchanged.
+An earlier explicitly forced SwiftShader run before cloud texture optimization
+recorded 38.6 desktop / 42.6 mobile-emulation FPS. This demonstrates a functioning
+software fallback, but does not meet the desktop 60 FPS target. The GPU profile
+meets the local target. No physical mobile device was tested.
 
-## Langfuse integration
+Cloud texture was reduced to 1024×512, saving approximately 496 KB. Three.js/R3F
+is lazy-loaded; Vite still reports a large scene chunk (about 926 KB raw / 245 KB
+gzip). It is not requested for reduced-motion Home or the other routes.
 
-Verified on November 17, 2026 against self-hosted Langfuse 4.82.0 with separate
-PostgreSQL 18.7, ClickHouse 26.10.5.57, Redis 8.10.3 and RustFS 1.0.6. All twelve
-long-running Compose services are healthy. Langfuse headless initialization and
-S3 bucket creation completed successfully without modifying the application's
-PostgreSQL data or schema.
+`docs/qa/performance.json` contains complete profile data and 12 SPA navigation
+samples. A longer 40-cycle run is in `docs/qa/navigation-memory.json`. Every exit
+removes the canvas. The measurement allows R3F's delayed renderer cleanup before
+explicit GC; cached textures are intentionally retained once for reuse. JS heap increased from
+about 6.1 MB on the first cycle to 8.4 MB on cycle 40 (about 0.33 MB over the
+last 20 cycles). No canvases accumulated. This finite run does not establish
+zero heap growth or prove the absence of every library-level retention issue.
 
-`make langfuse-smoke` indexed a public source and queried it through the actual
-Ollama/LangGraph pipeline. Public Observations API v2 returned five observations
-for the supplied request ID: root, embedding, retrieval, graph and generation.
-They share one trace ID, generation has the configured model, and all input/output
-fields are null with default content capture disabled. The application submitted
-public OTLP HTTP/JSON with the native v4 ingestion header. The original
-`make ai-smoke` passed as well.
+## Known limits and release review
 
-The final API suite passed with 332 tests and four optional PostgreSQL/graph-vector
-integration cases skipped. Combined coverage with branch measurement is 97.28%.
-Tests cover export failure and timeout, partial acceptance, content opt-in and
-bounds, metadata filtering, exception-message privacy, concurrency isolation,
-Vercel endpoint validation, and completion of export before the HTTP response
-starts. Strict Ruff and Pyright pass. Twelve Playwright scenarios passed through
-Compose across Chromium, Firefox, WebKit and mobile Chromium.
-
-Vercel entrypoint import passed with the external Langfuse example configuration,
-PostgreSQL NullPool, content capture disabled and a three-second export budget.
-No Langfuse Cloud deployment, credentials or real Cloud request were provisioned.
-No SDK, global tracer provider, automatic HTTP instrumentation or background
-export worker was added to the application.
-
-The constitution is now version 2.0.0: explicitly configured Langfuse AI
-observability is allowed, replacing the earlier blanket telemetry prohibition.
-Unrelated telemetry, dependency audits and GitHub Actions remain excluded.
-`make spec-check` still reports unchanged upstream templates and valid integration.
-The dedicated Langfuse skills were researched and documented, without installation.
-
-## Official skills and MCP
-
-Verified on November 18, 2026 with local Codex 0.169.0. Eleven additional
-first-party skills were installed from full upstream commit SHAs, preserving the
-original skill files and references. Licenses and source revisions are recorded
-in `.agents/skills.lock.json`. Codex `app-server` discovered exactly 20 enabled
-project skills: nine existing Spec Kit skills and eleven additions, with no loader
-errors. This check used `skills/list` without starting a model or conversation.
-The manifest paths, names, license files, and all ten auxiliary-file hashes match.
-
-All four documentation MCP endpoints passed real HTTP `initialize` and
-`tools/list` requests. Their configured allowlists contain only available read
-tools and exclude feedback submission. GitHub authenticated through the existing
-`gh` login and returned the 33 tools for the selected context, repository, and
-pull-request toolsets. No GitHub data was changed.
-
-Atlassian v2 OAuth login completed successfully. An authenticated app-server
-`mcpServerStatus/list` request returned all 28 tools, including `discover`,
-`executeRead`, and `executeWrite`, with no tool-catalog errors. This verification
-did not call Jira or Confluence data tools or start a model or conversation.
-
-Neo4j MCP 2.1.1 passed actual STDIO handshakes from the checkout root, `api/`,
-and `web/`. Its catalog contains only `get-schema` and `read-cypher`, both marked
-read-only. `RETURN 1 AS ok` and schema inspection passed; no write queries were
-executed. The official server requires APOC at handshake time even when schema
-tools are filtered. Compose now enables the bundled APOC Core jar with only
-`apoc.meta.schema` allowed and unrestricted. MCP telemetry is disabled; the
-local server also retains its disabled Bolt telemetry setting.
-
-The stable Playwright 1.65.1 CLI opened the Compose frontend in an isolated
-session, captured the text `Aplikacja działa.`, and closed the browser. Temporary
-browser artifacts were removed. The official scoped Langfuse CLI 1.3.1 returned
-HTTP 200 for local health and authenticated project-list requests without printing
-credentials or project details. Five environment-mapping tests cover shell and
-dotenv precedence, aliases, local ports, and remote credential fallbacks.
-
-`make agent-install`, `make agent-check`, `make spec-check`, and all twelve local
-pre-commit hooks passed. The Neo4j wrapper also passes Ruff lint and formatting.
-All twelve long-running Compose services are healthy; migrations and initialization
-jobs completed successfully. Application code and application dependency locks
-were unchanged; agent CLI dependencies have separate locks.
+- Cinematic source fidelity is approximate; the film does not expose enough
+  information to measure exact full-rotation periods. The camera and characters
+  remain still; Earth/station rotate continuously without the source loop cut.
+- Physical mobile GPU performance and production-network performance remain
+  unmeasured; the reported mobile profile is desktop emulation.
+- Names, 14+, awards, dates, event wording and project technology claims need
+  owner confirmation before publication. See content-review.md.
+- Other project detail pages contain only supplied descriptions, with no invented
+  repository/demo links. Risk Miner visuals are not a working risk dashboard.
+- Vite's lazy-chunk size warning and the R3F test renderer's upstream Three.js
+  CommonJS deprecation warning remain non-failing warnings.
+- Hosting remains intentionally undeployed; SPA refresh was verified locally.
