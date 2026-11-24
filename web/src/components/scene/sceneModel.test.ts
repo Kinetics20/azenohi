@@ -4,7 +4,12 @@ import { animateScene, buildScene, disposeScene } from './sceneModel';
 describe('Orbital scene', () => {
   it('builds independent geometry, advances the Earth and station, and disposes GPU resources', () => {
     const day = new Texture();
-    const model = buildScene({ day, night: new Texture(), clouds: new Texture() });
+    const model = buildScene({
+      day,
+      night: new Texture(),
+      clouds: new Texture(),
+      normal: new Texture(),
+    });
     expect(model.earth.geometry.type).toBe('SphereGeometry');
     expect(model.station.getObjectByName('Habitat pressure hull')).toBeInstanceOf(Mesh);
     expect(model.station.getObjectByName('Docking deck')).toBeInstanceOf(Mesh);
@@ -19,12 +24,15 @@ describe('Orbital scene', () => {
     const tilt = model.station.parent!.rotation.toArray();
     animateScene(model, 10);
     expect(model.earth.rotation.y).toBeGreaterThan(0.9);
+    expect(model.clouds.rotation.y).toBeGreaterThan(model.earth.rotation.y);
+    expect(model.earth.material.uniforms['cloudDrift']!.value).toBeGreaterThan(0);
     expect(model.station.rotation.y).toBeLessThan(0);
     expect(model.station.parent!.rotation.toArray()).toEqual(tilt);
     const light = model.red.emissiveIntensity;
     animateScene(model, 12);
     expect(model.red.emissiveIntensity).not.toEqual(light);
     const disposeGeometry = vi.spyOn(model.earth.geometry, 'dispose');
+    const disposeClouds = vi.spyOn(model.clouds.geometry, 'dispose');
     const disposeMaterial = vi.spyOn(model.red, 'dispose');
     const disposeInstances = vi.spyOn(plating, 'dispose');
     const disposeSharedBox = vi.spyOn(plating.geometry, 'dispose');
@@ -39,6 +47,7 @@ describe('Orbital scene', () => {
     const extraDispose = vi.spyOn(materials[0]!, 'dispose');
     disposeScene(model);
     expect(disposeGeometry).toHaveBeenCalledOnce();
+    expect(disposeClouds).toHaveBeenCalledOnce();
     expect(disposeMaterial).toHaveBeenCalledOnce();
     expect(extraDispose).toHaveBeenCalledOnce();
     expect(disposeInstances).toHaveBeenCalledOnce();

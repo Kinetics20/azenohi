@@ -1,0 +1,24 @@
+desktop {
+  lcp: 132,
+  cls: 0.002703549985532408,
+  rafFPS: 60,
+  p95FrameMs: 16.700000000000728,
+  transferBytes: 3654597,
+  requests: 12
+}
+mobile-emulation {
+  lcp: 268,
+  cls: 0.00006549775703658141,
+  rafFPS: 60,
+  p95FrameMs: 16.799999999999727,
+  transferBytes: 1318807,
+  requests: 12
+}
+reduced {
+  lcp: 76,
+  cls: 0.002703549985532408,
+  rafFPS: 60,
+  p95FrameMs: 16.700000000000273,
+  transferBytes: 373371,
+  requests: 5
+}

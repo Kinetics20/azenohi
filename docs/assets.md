@@ -38,13 +38,20 @@ The scene refinement also uses the same author's 8K masters, downloaded on
 - https://www.solarsystemscope.com/textures/download/8k_earth_daymap.jpg
 - https://www.solarsystemscope.com/textures/download/8k_earth_nightmap.jpg
 - https://www.solarsystemscope.com/textures/download/8k_earth_clouds.jpg
+- https://www.solarsystemscope.com/textures/download/8k_earth_normal_map.tif
 
-All original JPEGs remain in design/textures/. Production WebP variants are in
-web/public/textures/: 4096×2048 on desktop (quality 79 day / 85 night / 60 clouds)
-and 2048×1024 in textures/mobile/ (75 / 82 / 67). Each variant is resized with
-Lanczos from the 8K master, then WebP-encoded. The shader repeats surface detail
-at twice its geographic density, adds twilight color, cloud occlusion and
-atmospheric scattering. This is an art-directed surface, not an accurate globe.
+All original JPEGs and the normal-map TIFF remain in design/textures/.
+Production WebP variants are in web/public/textures/: 4096×2048 day/cloud/normal
+maps (quality 79 / 60 / 86), plus an 8192×4096 night map (quality 88) to retain
+fine city networks. The mobile tier uses 2048×1024 maps (day / night / cloud /
+normal quality 75 / 82 / 67 / 82). Variants are resized with Lanczos from their
+8K masters, then WebP-encoded. Normal data is sampled without sRGB conversion.
+The shader repeats and offsets surface detail at twice its geographic density;
+terrain normals, a separately elevated cloud shell, cloud shadows, twilight
+color and analytic atmospheric falloff supply the depth and lighting. This is
+an art-directed surface, not an accurate globe. The final Earth pass is reviewed
+in earth-refinement.md; texture-manifest.json under docs/qa/earth-refinement
+records the source TIFF and all runtime maps.
 No ownership of these maps is claimed.
 
 ## Code-native visuals and typography

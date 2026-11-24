@@ -62,6 +62,7 @@ test('compact scene loads smaller maps, pauses, and keeps its quality tier acros
     '/textures/mobile/earth-clouds.webp',
     '/textures/mobile/earth-day.webp',
     '/textures/mobile/earth-night.webp',
+    '/textures/mobile/earth-normal.webp',
   ]);
   await page.getByRole('button', { name: 'Pause animation' }).click();
   await page.waitForTimeout(150);
@@ -70,7 +71,7 @@ test('compact scene loads smaller maps, pauses, and keeps its quality tier acros
   expect((await page.locator('canvas').screenshot()).equals(paused)).toBe(true);
   await page.setViewportSize({ width: 1280, height: 720 });
   await expect(page.locator('[data-scene]')).toHaveAttribute('data-scene', 'ready');
-  expect(textures).toHaveLength(3);
+  expect(textures).toHaveLength(4);
   await page.getByRole('link', { name: 'Projects', exact: true }).click();
   await expect(page.locator('canvas')).toHaveCount(0);
 });

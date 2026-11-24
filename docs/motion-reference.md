@@ -12,7 +12,8 @@ frames at 0–7 s every second, 0/3.33/6.67/9.96 s, and magnified station frames
   enough to measure a true sidereal period or confidently distinguish every
   surface displacement from camera/texture deformation. Do not call 120–240 s
   a measured period. Implementation uses a slow positive local Y rotation,
-  tilted presentation and a 210 s artistic period.
+  tilted presentation. The initial 210 s period was slowed to 630 s after
+  the detailed Earth pass; see the third visual pass below.
 - Station: oblique ring around a near-vertical spindle leaning slightly left.
   Ring/spoke relative positions evolve slightly; the center stays upper-right.
   There is no complete orbit around Earth. The front portions appear to move
@@ -53,3 +54,25 @@ The horizon curve was fitted to three points in home.png and shaded with the
 orthographic view direction. Portrait screens use a smaller, raised station and
 2K maps; desktop uses 4K. Initial quality is retained during viewport resizing to
 avoid interrupting the running scene. See scene-refinement.md for review.
+
+## Third visual pass: Earth, clouds and dawn
+
+The original single-layer Earth had a thin hard limb, flat blue cloud sheets
+and coarse/sparse lights. The reference's grazing viewpoint shows relief and
+warm edges on clouds/terrain, fine urban networks and a broad dawn transition.
+The new earthModel.ts separates the normal-mapped ground, a transparent elevated
+cloud shell, exterior atmosphere and sun. Cloud opacity exposes city networks;
+cloud slopes receive cool fill and warm grazing light. UV-shifted shadows follow
+the cloud drift. This is surface shading/displacement, not volumetric ray marching.
+
+The exterior halo falls off smoothly beyond the fitted sphere silhouette, with
+no cutoff seam. An internal belt blends it into the planet. The sun is now a
+world-space shader behind the sphere; the planet occludes its lower half. It
+replaces the CSS glow and hard flare line, keeping placement consistent in portrait.
+
+Moving browser captures showed the 210 s prototype period made the newly visible
+terrain cross the close horizon too quickly. The Earth period is now 630 s and
+the cloud shell rotates 2.5% faster. The station remains at 84 s. These are
+artistic choices after comparison, not periods measured from the generative clip.
+The final surface, cloud elevation, map offsets and atmospheric colors remain
+approximations rather than a calibrated physical or geographic simulation.

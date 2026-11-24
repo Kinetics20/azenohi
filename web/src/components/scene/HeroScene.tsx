@@ -76,7 +76,6 @@ export function HeroScene() {
                 <SpaceCanvas active={active} onReady={onReady} onFailure={onFailure} />
               </Suspense>
             </SceneBoundary>
-            <div className="scene-sun" />
             <img className="scene-foreground" src="/images/scene/foreground.webp" alt="" />
           </div>
         )}

@@ -6,7 +6,7 @@ import { Texture } from 'three';
 import type { ReactNode } from 'react';
 import SpaceCanvas, { SceneObjects } from './SpaceCanvas';
 vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT', true);
-const textures = [new Texture(), new Texture(), new Texture()];
+const textures = [new Texture(), new Texture(), new Texture(), new Texture()];
 vi.mock('@react-three/fiber', async (original) => {
   const actual = await original<typeof FiberModule>();
   return {
@@ -38,18 +38,22 @@ describe('React Three Fiber integration', () => {
       expect(onReady).toHaveBeenCalled();
       const group = renderer.scene.instance;
       const earth = group.getObjectByName('Earth')!;
+      const clouds = group.getObjectByName('Cloud layer')!;
       const station = group.getObjectByName('Orbital station')!;
       const y = earth.rotation.y;
       const s = station.rotation.y;
       await renderer.advanceFrames(4, 0.02);
       expect(earth.rotation.y).toBeGreaterThan(y);
+      expect(clouds.rotation.y).toBeGreaterThan(earth.rotation.y);
       expect(station.rotation.y).toBeLessThan(s);
       await renderer.update(
         <SceneObjects active={false} onReady={onReady} onFailure={onFailure} />,
       );
       const stopped = earth.rotation.y;
+      const cloudsStopped = clouds.rotation.y;
       await renderer.advanceFrames(4, 0.02);
       expect(earth.rotation.y).toBe(stopped);
+      expect(clouds.rotation.y).toBe(cloudsStopped);
       await renderer.unmount();
     },
   );

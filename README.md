@@ -176,8 +176,11 @@ The scene is a separate chunk, loaded only on Home when motion is permitted.
 Repeated station plates, trusses, hardware and windows share instanced geometry.
 Procedural reflection/roughness maps shade the metal; cloud occlusion and twilight
 color shade Earth. A fixed underside view is separate from local station rotation.
-Desktop uses 4K Earth maps; portrait screens use 2K maps and a smaller, raised station.
-See the [scene refinement comparison](docs/scene-refinement.md).
+The Earth uses terrain normals, an elevated cloud shell with a slight drift,
+fine city lights and a soft dawn halo. Desktop uses 4K maps with an 8K night map;
+portrait screens use 2K maps and a smaller, raised station.
+See the [station comparison](docs/scene-refinement.md) and
+[Earth refinement](docs/earth-refinement.md).
 [Motion reference notes](docs/motion-reference.md) distinguish observation from
 artistic approximations; the short source video does not establish exact periods.
 

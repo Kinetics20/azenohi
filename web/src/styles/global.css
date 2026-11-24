@@ -228,26 +228,6 @@ main:focus {
   position: absolute;
   inset: 0;
 }
-.scene-sun {
-  position: absolute;
-  width: 28%;
-  height: 34%;
-  left: 43.2%;
-  top: 27.1%;
-  background: radial-gradient(ellipse, #fff4da 0%, #ffd5b0aa 5%, #ff755b44 20%, transparent 66%);
-  mix-blend-mode: screen;
-}
-.scene-sun::after {
-  content: '';
-  position: absolute;
-  width: 140%;
-  height: 3px;
-  left: -20%;
-  top: 53%;
-  transform: rotate(-14deg);
-  background: radial-gradient(ellipse, #fff7e8, #ffc1ab88 24%, transparent 70%);
-  box-shadow: 0 0 16px #ffa6a155;
-}
 .scene-status {
   position: absolute;
   left: 5.4%;

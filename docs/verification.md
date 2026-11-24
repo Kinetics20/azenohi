@@ -28,8 +28,8 @@ be reproduced with `git rev-parse HEAD`. No public hosting deployment was made.
 - `npm --prefix web ci`: PASS with Node 26.13.1 and npm 12.2.2.
 - `npm --prefix web run check`: PASS — type-aware Oxlint, Prettier, strict
   TypeScript, 23 unit tests and production build.
-- Coverage: statements **99.48%**, branches **98.19%**, functions **98.66%**,
-  lines **99.43%**. All four thresholds remain at 90%; no new coverage exclusions.
+- Coverage: statements **99.50%**, branches **98.31%**, functions **98.68%**,
+  lines **99.46%**. All four thresholds remain at 90%; no new coverage exclusions.
 - `npm --prefix web run test:e2e`: PASS, **25 passed / 15 intentional skips**.
   Chromium, Firefox, WebKit and mobile Chromium run the five shared scenarios.
   Five real WebGL/failure scenarios run only on desktop Chromium. The other
@@ -42,7 +42,7 @@ be reproduced with `git rev-parse HEAD`. No public hosting deployment was made.
 - README: all 27 local references/asset paths checked; banners, gallery images,
   badges and recording exist. No invented live-demo URL or CI badge.
 
-Current refinement check and E2E logs are in `docs/qa/scene-refinement/`; initial-delivery logs remain in `docs/qa/`. HTML/trace reports remain locally ignored
+Current Earth-refinement logs are in `docs/qa/earth-refinement/`; earlier station logs remain in `docs/qa/scene-refinement/`, with initial-delivery logs in `docs/qa/`. HTML/trace reports remain locally ignored
 under web/playwright-report and web/test-results.
 
 ## Browser and accessibility evidence
@@ -92,8 +92,12 @@ film's generated surface. The immediate poster is more photographic than the
 live geometry. The follow-up rebuilt the station with bevelled plated hulls,
 box trusses, a detailed axial tower and docking machinery; corrected its underside
 view; and added warm/cool reflections and surface roughness. See
-[the visual refinement report](scene-refinement.md) for before/after crops,
-portrait framing and the residual differences.
+[the station refinement report](scene-refinement.md) and
+[Earth refinement report](earth-refinement.md) for before/after crops, portrait
+framing and residual differences. Earth now has a separately elevated cloud shell,
+terrain normals, finer city lights, a broader atmosphere and a world-space sunrise.
+Surface travel was slowed to a 630 s period after the moving comparison; clouds
+rotate 2.5% faster and the station remains at 84 s.
 
 ## Performance
 
@@ -106,24 +110,25 @@ percentiles or proof of performance on real phones.
 
 | Profile | LCP | CLS | Frame cadence | Resource transfer |
 | --- | --- | --- | --- | --- |
-| Desktop 1440×900, DPR 1, GPU scene | 140 ms | 0.00270 | 60.0 FPS; p95 16.7 ms | 2,742,335 bytes |
-| Mobile viewport 390×844, DPR 2, same desktop GPU | 216 ms | 0.0000655 | 60.0 FPS; p95 16.7 ms | 1,307,309 bytes |
-| Reduced motion, desktop poster | 80 ms | 0.00270 | No animated canvas; browser cadence 60 FPS | 373,496 bytes |
+| Desktop 1440×900, DPR 1, GPU scene | 132 ms | 0.00270 | 60.0 FPS; p95 16.7 ms | 3,654,597 bytes |
+| Mobile viewport 390×844, DPR 2, same desktop GPU | 268 ms | 0.0000655 | 60.0 FPS; p95 16.8 ms | 1,318,807 bytes |
+| Reduced motion, desktop poster | 76 ms | 0.00270 | No animated canvas; browser cadence 60 FPS | 373,371 bytes |
 
 An earlier explicitly forced SwiftShader run before cloud texture optimization
 recorded 38.6 desktop / 42.6 mobile-emulation FPS. This demonstrates a functioning
 software fallback, but does not meet the desktop 60 FPS target. The GPU profile
 meets the local target. No physical mobile device was tested.
 
-The refinement replaces the initial coarse maps with 4096×2048 desktop variants
-and 2048×1024 mobile variants. Higher visual detail increases desktop transfer;
-the smaller mobile maps save 1.44 MB against the desktop profile. Three.js/R3F
-remains lazy-loaded; Vite reports a scene chunk of 930 KB raw / 248 KB gzip.
-It is not requested for reduced-motion Home or the other routes. LCP refers to
-the immediate HTML/artwork presentation, not a scene-completion timing.
+The current Earth uses 4K day/cloud/normal maps and an 8K desktop night map;
+mobile uses 2K maps. This raises desktop transfer by about 0.91 MB over the
+station-refinement pass, mainly for fine city detail. Mobile transfer grows by
+about 11.5 KB. The larger desktop night map also increases GPU texture storage.
+Three.js/R3F remains lazy-loaded; the scene chunk is 935 KB raw / 249 KB gzip.
+It is not requested for reduced-motion Home or other routes. LCP refers to the
+immediate HTML/artwork presentation, not a scene-completion timing.
 
 `docs/qa/performance.json` contains complete profile data and 12 SPA navigation
-samples from the refined scene (6.23 MB first-cycle JS heap, 8.23 MB at cycle 12).
+samples from the refined scene (6.27 MB first-cycle JS heap, 8.32 MB at cycle 12).
 A longer 40-cycle run from the initial delivery is in `docs/qa/navigation-memory.json`. Every exit
 removes the canvas. The measurement allows R3F's delayed renderer cleanup before
 explicit GC; cached textures are intentionally retained once for reuse. JS heap increased from

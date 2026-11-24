@@ -7,15 +7,16 @@ export function SceneObjects({ active, onReady, onFailure }: SpaceProps) {
   // Fix the tier at mount, so resizing never interrupts an already running scene.
   const [compact] = useState(() => window.matchMedia('(max-width: 700px)').matches);
   const directory = compact ? '/textures/mobile' : '/textures';
-  const [day, night, clouds] = useLoader(TextureLoader, [
+  const [day, night, clouds, normal] = useLoader(TextureLoader, [
     `${directory}/earth-day.webp`,
     `${directory}/earth-night.webp`,
     `${directory}/earth-clouds.webp`,
+    `${directory}/earth-normal.webp`,
   ]);
   const model = useMemo(() => {
-    for (const texture of [day!, night!, clouds!]) texture.anisotropy = 8;
-    return buildScene({ day: day!, night: night!, clouds: clouds! }, compact);
-  }, [day, night, clouds, compact]);
+    for (const texture of [day!, night!, clouds!, normal!]) texture.anisotropy = 8;
+    return buildScene({ day: day!, night: night!, clouds: clouds!, normal: normal! }, compact);
+  }, [day, night, clouds, normal, compact]);
   const { viewport, gl } = useThree();
   const time = useRef(0);
   const scale = Math.max(viewport.width / 16.72, viewport.height / 9.41);

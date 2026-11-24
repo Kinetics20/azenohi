@@ -18,3 +18,11 @@
 - [x] T12 Refine metal surfaces, directional/rim lighting, windows and atmosphere.
 - [x] T13 Review browser iterations and portrait framing; add mobile texture tier.
 - [x] T14 Complete checks, performance measurement, evidence refresh and delivery.
+
+## Follow-up: Earth, clouds and horizon
+
+- [x] T15 Compare the Earth, city network and cloud relief against both sources.
+- [x] T16 Separate ground/cloud shading; add terrain normals and fine night detail.
+- [x] T17 Replace the hard limb/CSS sun with a soft world-space atmosphere and dawn.
+- [x] T18 Review desktop/portrait captures and slow surface travel after motion comparison.
+- [x] T19 Complete final browser/performance checks, refresh evidence and deliver.

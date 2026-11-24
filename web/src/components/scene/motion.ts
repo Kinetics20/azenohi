@@ -1,4 +1,5 @@
-export const EARTH_PERIOD = 210;
+// A near-horizon view magnifies surface travel; keep the detailed landscape calm.
+export const EARTH_PERIOD = 630;
 export const STATION_PERIOD = 84;
 export function motionAt(seconds: number) {
   return {
