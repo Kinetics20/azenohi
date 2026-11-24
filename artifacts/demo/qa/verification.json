@@ -1,0 +1,118 @@
+{
+  "file": "/home/lipov/projects/azeno_hi/artifacts/demo/azenohi-demo.mp4",
+  "sha256": "daf2cdc13f8eceb1c2170e57a81b91bc44e392f0f4f5a0d1923060b2b1d543d3",
+  "bytes": 11258759,
+  "duration": 60,
+  "homeDuration": 10,
+  "frames": 1800,
+  "fps": 30,
+  "resolution": "1920x1080",
+  "codec": "h264",
+  "profile": "High",
+  "pixelFormat": "yuv420p",
+  "audioStreams": 0,
+  "completeDecode": true,
+  "blackIntervals": 0,
+  "openingCadence": {
+    "frames": 282,
+    "changedPairs": 281,
+    "pairs": 281,
+    "changedFraction": 1.0,
+    "minimumPixelDelta": 0.6762009803921568,
+    "meanPixelDelta": 1.2726979973484056
+  },
+  "edit": {
+    "duration": 60,
+    "homeDuration": 10,
+    "animationStart": 0,
+    "speed": 1,
+    "captureFps": 60,
+    "outputFps": 30,
+    "segments": [
+      {
+        "id": "home",
+        "title": "Hybrid Intelligence",
+        "rawStart": 2.1166666666666667,
+        "duration": 10,
+        "start": 0,
+        "frames": 300
+      },
+      {
+        "id": "team",
+        "title": "Meet the team",
+        "rawStart": 642.7,
+        "duration": 6,
+        "start": 10,
+        "frames": 180
+      },
+      {
+        "id": "projects",
+        "title": "Explore six projects",
+        "rawStart": 651.9333333333333,
+        "duration": 8,
+        "start": 16,
+        "frames": 240
+      },
+      {
+        "id": "captrace",
+        "title": "CapTrace overview",
+        "rawStart": 660.0333333333333,
+        "duration": 7,
+        "start": 24,
+        "frames": 210
+      },
+      {
+        "id": "risk-miner",
+        "title": "Risk Miner details",
+        "rawStart": 725.9166666666666,
+        "duration": 21.5,
+        "start": 31,
+        "frames": 645
+      },
+      {
+        "id": "journey",
+        "title": "Our journey",
+        "rawStart": 750.6666666666666,
+        "duration": 7.5,
+        "start": 52.5,
+        "frames": 225
+      }
+    ],
+    "captions": [
+      {
+        "text": "Meet the people behind AzenoHI",
+        "start": 10.0,
+        "end": 15.994820880889847
+      },
+      {
+        "text": "Six projects. Explore every story.",
+        "start": 16.0,
+        "end": 20.989487711588595
+      },
+      {
+        "text": "Project stories, one click away",
+        "start": 24.0,
+        "end": 28.485487667719553
+      },
+      {
+        "text": "Risk Miner \u00b7 Project concept",
+        "start": 32.48815425237024,
+        "end": 36.98815425237024
+      },
+      {
+        "text": "Concept views \u00b7 Technology \u00b7 Team",
+        "start": 42.576154311498044,
+        "end": 47.576154311498044
+      },
+      {
+        "text": "Follow the journey",
+        "start": 52.5,
+        "end": 58.48815425237024
+      }
+    ],
+    "output": "/home/lipov/projects/azeno_hi/artifacts/demo/azenohi-demo.mp4"
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "externalRequests": []
+}

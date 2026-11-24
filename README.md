@@ -18,10 +18,20 @@ and a separate Three.js scene for the rotating Earth and orbital station.
   <img src="docs/assets/icons/playwright.png" alt="Playwright browser testing" height="40" />
 </p>
 
-**Status:** private, locally verified implementation. Public hosting has not been
-deployed. Names, awards, membership counts and historical statements transcribed
-from the concepts require owner review before public release. See
+**Status:** public source repository, locally verified implementation. Website
+hosting has not been deployed. Names, awards, membership counts and historical
+statements transcribed from the concepts have not been independently verified. See
 [content review](docs/content-review.md).
+
+## Product demo
+
+[Watch the 60-second product demo](artifacts/demo/azenohi-demo.mp4) — Full HD,
+30 FPS, H.264, 11.26 MB. Home occupies exactly the first ten seconds, followed by
+Team, Projects, CapTrace, Risk Miner and Journey. No music or narration.
+
+[Scenario](artifacts/demo/scenario.md) ·
+[Quality report](artifacts/demo/recording-report.md) ·
+[Regenerate the film](artifacts/demo/README.md)
 
 ## Experience
 

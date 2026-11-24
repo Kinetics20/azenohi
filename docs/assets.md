@@ -89,3 +89,32 @@ variants. Inspect decoded images and rendered cards after any asset change.
 Playwright README mark: Microsoft Playwright appIcon.png from the official GitHub
 repository (packages/playwright-core/src/server/chromium/appIcon.png), Apache-2.0;
 notice retained in docs/licenses.
+
+## Local product demo
+
+`artifacts/demo/azenohi-demo.mp4` and `artifacts/demo/screenshots/` are captures of
+the unchanged local production application. Playwright drives real controls;
+FFmpeg captures the isolated X11 display and its native cursor at 1920 × 1080,
+60 FPS. NVIDIA Vulkan renders the scene; NVENC records the source and libx264 encodes the final H.264 movie. The source artwork,
+textures, source repository and generated masters are not altered.
+
+The final MP4 is exactly 60 seconds, with ten seconds of Home, and is below the owner's 100 MB ceiling. It delivers 30 FPS at unchanged playback speed, selecting every other
+60 FPS capture frame. Adjacent-frame inspection rejected the initial 60 FPS export
+because asynchronous X11 presentation caused intermittent repeated frames.
+The verified 30 FPS delivery meets the requested minimum without interpolation
+or artificial 60 FPS upconversion.
+
+Post-production trims browser setup and the unused tail, adds short English
+captions after the protected opening, and embeds navigation chapters. Caption
+colors match the application; Inter is derived from the existing locally served
+font under its retained OFL license. No music, narration, watermark, fabricated
+screen or accelerated animation is introduced. Large videos and all intermediate
+files are Git-ignored, except for the approved final 11.26 MB MP4. Scripts,
+documentation and review evidence remain versionable.
+
+Technical and visual review evidence, including full-file decoding, actual frame
+samples and a checksum-bound visual review, is in `artifacts/demo/qa/` and
+`artifacts/demo/recording-report.md`. The owner authorized publishing the final
+MP4 in the public GitHub repository on 2026-11-25. This does not independently
+verify the source content's claims or change the assets' licenses. Website
+hosting remains outside this request.

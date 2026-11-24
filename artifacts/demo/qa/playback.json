@@ -1,0 +1,40 @@
+{
+  "sha256": "daf2cdc13f8eceb1c2170e57a81b91bc44e392f0f4f5a0d1923060b2b1d543d3",
+  "browser": "159.0.8154.6",
+  "checks": [
+    {
+      "seekTo": 0,
+      "currentTime": 0.5292,
+      "duration": 60,
+      "width": 1920,
+      "height": 1080,
+      "error": null,
+      "paused": false,
+      "decodedFrames": 21,
+      "droppedFrames": 0
+    },
+    {
+      "seekTo": 30,
+      "currentTime": 30.5528,
+      "duration": 60,
+      "width": 1920,
+      "height": 1080,
+      "error": null,
+      "paused": false,
+      "decodedFrames": 228,
+      "droppedFrames": 1
+    },
+    {
+      "seekTo": 58.8,
+      "currentTime": 59.3538,
+      "duration": 60,
+      "width": 1920,
+      "height": 1080,
+      "error": null,
+      "paused": false,
+      "decodedFrames": 439,
+      "droppedFrames": 2
+    }
+  ],
+  "ended": true
+}

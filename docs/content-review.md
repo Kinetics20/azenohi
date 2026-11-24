@@ -1,6 +1,6 @@
-# Content review before public release
+# Content provenance and review status
 
-This private implementation transcribes the supplied design concepts. It is not
+This implementation transcribes the supplied design concepts. It is not
 independent verification of achievements, identities, membership or deployment.
 No public website was deployed in this task.
 
@@ -43,3 +43,23 @@ Other projects have honest local overview pages with the supplied descriptions.
 No repository, demo, contact or social URL was invented. Event symbols are generic
 UI marks, not official partner badges. Journey illustrations are reference art,
 not independently authenticated event photographs.
+
+## Local product-demo review
+
+The final movie in `artifacts/demo/` follows the owner's latest instruction:
+exactly 60 seconds, exactly ten seconds of Home, and less than 100 MB. This
+supersedes the earlier complete-rotation opening requirement. The Home excerpt
+keeps original animation speed, with no overlay or input during its ten seconds.
+
+The film demonstrates implemented portfolio behavior: the live Home scene,
+Team, the six project cards, a CapTrace overview, Risk Miner details, scrolling,
+return links and Journey. Risk Miner panels remain labelled concept visuals;
+no operational risk-analysis application, backend, form or authentication is
+implied. English captions describe the real navigation and portfolio content.
+
+The movie retains existing names, portraits, awards and historical wording.
+All content-review items above remain open. The owner authorized the public
+GitHub repository and final demo video on 2026-11-25; this does not independently
+validate the supplied claims. Technical results and checksum-bound
+visual review are in `artifacts/demo/recording-report.md` and
+`artifacts/demo/qa/visual-review.md`. Website hosting has not been deployed.

@@ -5,3 +5,12 @@
 .tmp/
 .agents/tools/node_modules/
 .playwright-cli/
+
+# Publish the approved final demo; keep raw takes and temporary tools local.
+/artifacts/demo/.work/
+/artifacts/demo/**/*.mp4
+!/artifacts/demo/azenohi-demo.mp4
+/artifacts/demo/**/*.mkv
+/artifacts/demo/**/*.webm
+/artifacts/demo/**/*.mov
+/artifacts/demo/**/__pycache__/

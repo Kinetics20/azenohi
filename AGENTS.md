@@ -11,5 +11,5 @@ artifacts live in `specs/001-azenohi-website/` independently of branch names.
 - Keep text and navigation in HTML. Never use a page screenshot as the interface.
 - Source materials and original generated images are immutable references.
 - Record source, modifications and review status in `docs/assets.md` and `docs/content-review.md`.
-- Do not publish the website unless explicitly requested. The repository is private.
+- Do not deploy the website unless explicitly requested. The owner authorized the public repository and final demo video on 2026-11-25.
 - Do not modify the source repository maintained by Paweł Konior.

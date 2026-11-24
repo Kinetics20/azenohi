@@ -1,0 +1,52 @@
+.gitignore (modified)
+AGENTS.md (modified)
+README.md (modified)
+artifacts/demo/README.md
+artifacts/demo/azenohi-demo.mp4
+artifacts/demo/qa/browser-install.log
+artifacts/demo/qa/check.log
+artifacts/demo/qa/e2e-motion-recheck.log
+artifacts/demo/qa/e2e.log
+artifacts/demo/qa/ffprobe.json
+artifacts/demo/qa/files.txt
+artifacts/demo/qa/full-decode.log
+artifacts/demo/qa/install.log
+artifacts/demo/qa/playback.json
+artifacts/demo/qa/verification.json
+artifacts/demo/qa/visual-review.md
+artifacts/demo/recording-report.md
+artifacts/demo/scenario.md
+artifacts/demo/screenshots/01-home.png
+artifacts/demo/screenshots/02-team.png
+artifacts/demo/screenshots/03-projects.png
+artifacts/demo/screenshots/04-captrace.png
+artifacts/demo/screenshots/04-done.png
+artifacts/demo/screenshots/04-privymeet.png
+artifacts/demo/screenshots/04-productivity-suite.png
+artifacts/demo/screenshots/04-risktrace.png
+artifacts/demo/screenshots/05-risk-miner.png
+artifacts/demo/screenshots/06-risk-miner-details.png
+artifacts/demo/screenshots/07-journey.png
+artifacts/demo/screenshots/08-home-finish.png
+artifacts/demo/screenshots/verification-contact-sheet.jpg
+artifacts/demo/screenshots/video-captrace.png
+artifacts/demo/screenshots/video-ending.png
+artifacts/demo/screenshots/video-home-last-frame.png
+artifacts/demo/screenshots/video-home-motion.png
+artifacts/demo/screenshots/video-journey.png
+artifacts/demo/screenshots/video-opening.png
+artifacts/demo/screenshots/video-projects.png
+artifacts/demo/screenshots/video-return-to-projects.png
+artifacts/demo/screenshots/video-risk-miner-details.png
+artifacts/demo/screenshots/video-risk-miner-entry.png
+artifacts/demo/screenshots/video-risk-miner.png
+artifacts/demo/screenshots/video-team-first-frame.png
+artifacts/demo/screenshots/video-team.png
+artifacts/demo/scripts/playback.mjs
+artifacts/demo/scripts/record.mjs
+artifacts/demo/scripts/render.py
+artifacts/demo/scripts/requirements.txt
+artifacts/demo/scripts/run.sh
+artifacts/demo/scripts/verify.py
+docs/assets.md (modified)
+docs/content-review.md (modified)
