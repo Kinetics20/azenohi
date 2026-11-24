@@ -71,6 +71,12 @@ No ownership of these maps is claimed.
 - README technology marks: local SVGs from the Simple Icons package, CC0-1.0.
 - README banner/screenshots: captured from this actual application, not supplied mockups.
 
+Mobile page refinement: Team portraits use proportional CSS frames; Projects
+uses contained illustrations above the copy; Journey uses separate image/text
+columns in timeline cards. The existing source images are reused. Mobile
+screenshots in docs/assets/screenshots were refreshed after browser inspection;
+see mobile-pages.md and docs/qa/mobile-pages for validation.
+
 Keep production assets out of design/reference/ and preserve masters when replacing
 variants. Inspect decoded images and rendered cards after any asset change.
 

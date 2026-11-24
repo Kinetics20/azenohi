@@ -284,9 +284,13 @@ main:focus {
     left: 6%;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 760px) {
   .site-header {
     height: 86px;
+    position: fixed;
+    background: #070d19f2;
+    border-bottom: 1px solid #ffffff0d;
+    backdrop-filter: blur(16px);
   }
   .brand {
     font-size: 25px;
@@ -316,6 +320,9 @@ main:focus {
     border-radius: 14px;
     padding: 12px;
     box-shadow: 0 15px 40px #0008;
+    max-height: calc(100dvh - 100px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
   .nav.is-open {
     display: grid;
@@ -329,6 +336,11 @@ main:focus {
     right: auto;
     width: 40px;
   }
+  html {
+    scroll-padding-top: 100px;
+  }
+}
+@media (max-width: 600px) {
   .home-page {
     min-height: 700px;
     height: 100svh;
@@ -511,9 +523,11 @@ main:focus {
   box-shadow: 0 8px 28px #0002;
   min-width: 0;
 }
-.project-card:hover {
-  transform: translateY(-5px);
-  border-color: #c00035;
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover {
+    transform: translateY(-5px);
+    border-color: #c00035;
+  }
 }
 .project-body {
   position: relative;
@@ -1072,11 +1086,27 @@ main:focus {
     background-size: auto 670px;
     background-position: 60% top;
   }
+  .team-page::before,
+  .projects-page::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 360px;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(#070c1630, #070c168c 45%, #070c1666 75%, transparent);
+  }
+  .inner-page .page-title {
+    text-shadow:
+      0 2px 18px #010611,
+      0 1px 4px #010611;
+  }
   .team-page .page-title {
-    margin-bottom: 65px;
+    margin-bottom: 40px;
   }
   .team-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
   }
   .person-card:nth-child(6),
   .person-card:nth-child(7) {
@@ -1084,50 +1114,74 @@ main:focus {
   }
   .person-card img,
   .person-featured img {
-    height: 170px;
+    height: auto;
+    aspect-ratio: 1.15;
   }
   .person-featured {
     transform: none;
   }
   .team-count {
-    min-height: 220px;
+    grid-column: 1 / -1;
+    min-height: 104px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 20px;
   }
   .projects-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .projects-page .page-title {
-    margin-bottom: 55px;
+    margin-bottom: 40px;
   }
   .project-footer {
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr) auto 20px;
+    gap: 10px;
+    padding: 16px;
     font-size: 13px;
+    line-height: 1.4;
+    white-space: normal;
+  }
+  .project-footer time,
+  .project-footer svg {
+    margin: 0;
+    padding: 0;
+  }
+  .project-card {
+    display: flex;
+    flex-direction: column;
   }
   .project-body {
-    min-height: 220px;
+    flex: 1;
+    min-height: 0;
+  }
+  .projects-grid .project-body > img {
+    position: static;
+    width: 100%;
+    height: clamp(160px, 44vw, 210px);
+    object-fit: contain;
+    object-position: center;
+    mask-image: none;
+    opacity: 1;
+    background: radial-gradient(ellipse at center, #41203755, transparent 75%);
+  }
+  .projects-grid .project-copy {
+    padding: 20px;
+    max-width: none;
+  }
+  .project-copy h2 {
+    margin: 14px 0 10px;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+  .project-copy h2:first-child {
+    margin-top: 0;
   }
   .project-copy p {
     font-size: 16px;
-  }
-  .journey-page {
-    min-height: 900px;
-  }
-  .journey-heading h1 {
-    font-size: 56px;
-  }
-  .milestones li {
-    width: 15%;
-    left: calc(3% + var(--step) * 17.5%);
-    top: calc(69% - var(--step) * 4.5%);
-  }
-  .milestones li > div {
-    margin-left: 0;
-    padding-left: 10px;
-  }
-  .milestones p {
-    font-size: 13px;
-  }
-  .journey-future {
-    top: 40%;
-    right: 6%;
+    max-width: none;
+    line-height: 1.5;
   }
   .risk-hero {
     min-height: 350px;
@@ -1192,6 +1246,103 @@ main:focus {
     font-size: 45px;
   }
 }
+@media (max-width: 1000px) {
+  .journey-page {
+    height: auto;
+    min-height: 100svh;
+    padding-bottom: 30px;
+    background-position: 68% top;
+    background-size: auto 750px;
+    background-repeat: no-repeat;
+  }
+  .journey-heading {
+    position: relative;
+    left: auto;
+    top: auto;
+    padding: 126px 6% 0;
+  }
+  .journey-heading h1 {
+    font-size: clamp(38px, 10.8vw, 52px);
+  }
+  .journey-heading .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.3em;
+  }
+  .journey-heading > p {
+    font-size: 16px;
+    margin-top: 20px;
+    color: #edf0f7;
+  }
+  .journey-path {
+    display: none;
+  }
+  .milestones {
+    position: relative;
+    margin: 48px 6% 40px;
+    padding-left: 22px;
+    border-left: 2px solid #ff294e;
+    display: grid;
+    gap: 20px;
+    pointer-events: auto;
+  }
+  .milestones li {
+    position: relative;
+    inset: auto;
+    width: auto;
+    max-width: none;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: clamp(76px, 24vw, 140px) minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
+    padding: 14px;
+    border: 1px solid #393044;
+    border-radius: 14px;
+    background: #0c1220ed;
+  }
+  .milestones img {
+    border-radius: 8px;
+  }
+  .milestone-dot {
+    position: absolute;
+    margin: 0;
+    left: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .milestones li > div {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+  .milestones h2 {
+    font-size: 20px;
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .milestones p {
+    max-width: none;
+    font-size: 15px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+  .journey-future {
+    position: relative;
+    inset: auto;
+    margin: 0 6%;
+    font-size: 12px;
+  }
+  .journey-signature {
+    position: static;
+    margin: 40px 6% 0;
+  }
+}
+@media (max-width: 760px) {
+  .projects-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 @media (max-width: 600px) {
   .inner-page {
     padding: 125px 6% 40px;
@@ -1211,34 +1362,41 @@ main:focus {
     width: 80px;
   }
   .team-page .page-title {
-    margin-bottom: 70px;
+    margin-bottom: 32px;
   }
   .team-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px 14px;
+    gap: 16px 12px;
   }
   .person-card {
     border-radius: 14px;
   }
   .person-card img,
   .person-featured img {
-    height: 140px;
+    height: auto;
+    aspect-ratio: 1.05;
   }
   .person-label {
-    padding: 12px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20px;
+    padding: 12px 10px;
+    gap: 6px;
+    min-height: 48px;
   }
   .person-label h2 {
-    font-size: 19px;
+    font-size: clamp(16px, 4.1vw, 18px);
+    line-height: 1.25;
+    overflow-wrap: anywhere;
   }
   .person-label svg {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
   }
   .team-count {
     grid-column: 1/-1;
-    min-height: 135px;
+    min-height: 104px;
     flex-direction: row;
-    gap: 18px;
+    gap: 12px;
   }
   .team-count strong {
     font-size: 38px;
@@ -1247,30 +1405,23 @@ main:focus {
     font-size: 15px;
   }
   .projects-page h1 {
-    font-size: 38px;
+    font-size: clamp(30px, 8.5vw, 40px);
   }
   .projects-page .page-title {
-    margin-bottom: 58px;
+    margin-bottom: 32px;
   }
   .projects-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
-  .project-body {
-    min-height: 202px;
-  }
-  .project-copy {
-    padding: 20px 21px;
-    max-width: 75%;
-  }
   .project-copy h2 {
-    font-size: 27px;
+    font-size: clamp(24px, 6.5vw, 28px);
   }
   .project-copy p {
     font-size: 16px;
   }
   .project-footer {
-    font-size: 12px;
+    font-size: 13px;
     padding: 15px 16px;
     gap: 9px;
   }
@@ -1282,82 +1433,6 @@ main:focus {
   }
   .award {
     font-size: 15px;
-  }
-  .journey-page {
-    height: auto;
-    min-height: 1530px;
-    background-position: 68% top;
-    background-size: auto 750px;
-    background-repeat: no-repeat;
-  }
-  .journey-heading {
-    position: relative;
-    left: auto;
-    top: auto;
-    padding: 128px 6% 0;
-  }
-  .journey-heading h1 {
-    font-size: 45px;
-  }
-  .journey-heading .eyebrow {
-    font-size: 12px;
-    letter-spacing: 0.3em;
-  }
-  .journey-heading > p {
-    font-size: 15px;
-    margin-top: 22px;
-  }
-  .journey-path {
-    display: none;
-  }
-  .milestones {
-    position: relative;
-    margin: 130px 6% 90px;
-    padding-left: 24px;
-    border-left: 2px solid #ff294e;
-    display: grid;
-    gap: 32px;
-    pointer-events: auto;
-  }
-  .milestones li {
-    position: relative;
-    inset: auto;
-    width: auto;
-    max-width: none;
-    display: grid;
-    grid-template-columns: 110px 1fr;
-    gap: 18px;
-    align-items: center;
-  }
-  .milestones img {
-    border-radius: 10px;
-  }
-  .milestone-dot {
-    position: absolute;
-    margin: 0;
-    left: -32px;
-    top: 29px;
-  }
-  .milestones li > div {
-    border: 0;
-    margin: 0;
-    padding: 0;
-  }
-  .milestones h2 {
-    font-size: 20px;
-  }
-  .milestones p {
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  .journey-future {
-    position: relative;
-    inset: auto;
-    margin: 30px 6% 0;
-    font-size: 12px;
-  }
-  .journey-signature {
-    bottom: 25px;
   }
   .risk-page .back-link {
     font-size: 18px;
@@ -1487,15 +1562,4 @@ main:focus {
   text-shadow:
     0 2px 12px #020814,
     0 1px 4px #020814;
-}
-@media (max-width: 600px) {
-  .journey-page {
-    min-height: 1350px;
-  }
-  .journey-heading > p {
-    color: #edf0f7;
-  }
-  .inner-page .page-title {
-    text-shadow: 0 2px 18px #010611;
-  }
 }

@@ -1,5 +1,5 @@
 import type * as MotionModule from '../components/scene/motion';
-import { render, screen, within } from '@testing-library/react';
+import { act, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { App } from './App';
@@ -93,5 +93,33 @@ describe('Portfolio navigation and content', () => {
       'aria-expanded',
       'false',
     );
+  });
+  it('dismisses navigation on outside taps, focus exit, current-page selection and breakpoint changes', async () => {
+    const browser = mockBrowser();
+    window.history.replaceState({}, '', '/projects');
+    const user = userEvent.setup();
+    render(<App />);
+    const toggle = screen.getByRole('button', { name: 'Open menu' });
+    await user.click(toggle);
+    await user.click(
+      within(screen.getByRole('navigation')).getByRole('link', { name: 'Projects' }),
+    );
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(toggle).toHaveFocus();
+    await user.click(toggle);
+    await user.click(screen.getByRole('heading', { level: 1 }));
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await user.click(toggle);
+    await user.tab();
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await user.tab();
+    await user.tab();
+    await user.tab();
+    await user.tab();
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await user.click(toggle);
+    const resized = browser.media.addEventListener.mock.calls.at(-1)![1];
+    act(() => resized(new Event('change')));
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
   });
 });

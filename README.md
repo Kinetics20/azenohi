@@ -187,6 +187,8 @@ the dev server and run `node web/scripts/capture-scene-stills.ts`.
 See the [station comparison](docs/scene-refinement.md) and
 [Earth refinement](docs/earth-refinement.md), plus the
 [mobile layout and loading review](docs/mobile-home.md).
+The [mobile pages review](docs/mobile-pages.md) covers Team, Projects, Journey
+and the shared navigation.
 [Motion reference notes](docs/motion-reference.md) distinguish observation from
 artistic approximations; the short source video does not establish exact periods.
 

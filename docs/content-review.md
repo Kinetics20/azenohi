@@ -9,6 +9,11 @@ now occupy separate areas. Current-scene loading stills replace the retired
 reference poster, including route returns, reduced motion and WebGL fallback.
 This changes presentation only; content and identity review items below remain.
 
+Team, Projects and Journey mobile review, 2026-11-24: readable card spacing,
+separate project art/copy, wrapping event labels and a vertical timeline were
+checked from 320px through tablet widths. Mobile navigation is reachable while
+scrolling, dismisses predictably and preserves keyboard focus.
+
 | Content | Source | Review needed |
 | --- | --- | --- |
 | Paweł, Olga, Michał, Przemek, Kacper, Julia, Adam, Tomek, Kasia, Bartek, Marta, Piotr | team.png, left-to-right / top-to-bottom | Confirm names and permission to publish portraits. No surnames, roles, biographies or profiles were invented. |
