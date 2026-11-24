@@ -77,6 +77,12 @@ columns in timeline cards. The existing source images are reused. Mobile
 screenshots in docs/assets/screenshots were refreshed after browser inspection;
 see mobile-pages.md and docs/qa/mobile-pages for validation.
 
+Project detail refinement: the Risk Miner illustration now follows a responsive
+grid, and its three screen concepts preserve their complete aspect ratio with
+`object-fit: contain`. Generic project illustrations use contained frames with
+their existing concept captions. These are CSS/layout changes to existing art.
+Browser captures and validation are recorded in mobile-project-details.md.
+
 Keep production assets out of design/reference/ and preserve masters when replacing
 variants. Inspect decoded images and rendered cards after any asset change.
 

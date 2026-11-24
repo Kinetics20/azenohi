@@ -13,6 +13,7 @@ export function Projects() {
       <div className="projects-grid">
         {projects.map((project) => (
           <Link
+            id={`project-${project.slug}`}
             className={`project-card project-${project.slug}`}
             to={`/projects/${project.slug}`}
             key={project.slug}

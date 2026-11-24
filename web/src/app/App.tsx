@@ -7,16 +7,21 @@ import { Projects } from '../pages/Projects';
 import { Journey } from '../pages/Journey';
 import { ProjectDetail, NotFound } from '../pages/ProjectDetail';
 function RouteEffects() {
-  const { pathname } = useLocation();
-  const previous = useRef(pathname);
+  const { pathname, hash } = useLocation();
+  const route = pathname + hash;
+  const previous = useRef(route);
   useEffect(() => {
     document.title = `${pathname === '/' ? 'Hybrid Intelligence' : pathname.split('/').at(-1)!.replaceAll('-', ' ')} — AzenoHI.dev`;
-    if (previous.current !== pathname) {
+    const card = pathname === '/projects' ? document.getElementById(hash.slice(1)) : null;
+    if (card?.classList.contains('project-card')) {
+      card.focus({ preventScroll: true });
+      card.scrollIntoView({ block: 'start' });
+    } else if (previous.current !== route) {
       window.scrollTo(0, 0);
       document.getElementById('main-content')?.focus();
-      previous.current = pathname;
     }
-  }, [pathname]);
+    previous.current = route;
+  }, [pathname, hash, route]);
   return null;
 }
 export function App() {

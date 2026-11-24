@@ -513,6 +513,7 @@ main:focus {
   gap: 28px 26px;
 }
 .project-card {
+  scroll-margin-top: 24px;
   border: 1px solid #393044;
   overflow: hidden;
   border-radius: 20px;
@@ -522,6 +523,9 @@ main:focus {
     border-color 0.2s;
   box-shadow: 0 8px 28px #0002;
   min-width: 0;
+}
+.project-card:target {
+  border-color: var(--red);
 }
 @media (hover: hover) and (pointer: fine) {
   .project-card:hover {
@@ -760,13 +764,31 @@ main:focus {
 .back-link {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  font-size: 22px;
+  gap: 10px;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #484052;
+  border-radius: 12px;
+  background: #0b1220ed;
+  font-size: 17px;
+  line-height: 1.3;
   position: relative;
   z-index: 3;
 }
 .back-link svg {
-  width: 25px;
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+}
+.project-return {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid #353044;
+}
+.generic-detail .project-return {
+  max-width: 1200px;
+  margin-inline: auto;
 }
 .risk-hero {
   position: relative;
@@ -821,7 +843,7 @@ main:focus {
 }
 .risk-lower {
   display: grid;
-  grid-template-columns: 1fr 285px;
+  grid-template-columns: minmax(0, 1fr) 285px;
   gap: 38px;
 }
 .capabilities {
@@ -866,8 +888,9 @@ main:focus {
 }
 .risk-screens img {
   width: 100%;
-  aspect-ratio: 1.75;
-  object-fit: cover;
+  height: auto;
+  aspect-ratio: 368 / 211;
+  object-fit: contain;
   border-radius: 17px;
   border: 1px solid #8c729c;
 }
@@ -884,6 +907,12 @@ main:focus {
 .risk-aside {
   border-left: 1px solid #302d40;
   padding-left: 30px;
+}
+.risk-lower > div,
+.risk-aside > section,
+.generic-layout > div,
+.project-visual {
+  min-width: 0;
 }
 .section-label {
   font-size: 15px;
@@ -976,16 +1005,20 @@ main:focus {
 .generic-layout .project-subtitle {
   margin: 25px 0;
 }
-.generic-layout > img {
+.project-visual {
+  margin: 0;
+}
+.project-visual img {
   width: 100%;
+  height: auto;
   border-radius: 25px;
   box-shadow: 0 0 100px #f0042820;
 }
 .detail-note {
-  font-size: 15px;
+  font-size: 14px;
   color: #b7afc1;
   line-height: 1.6;
-  margin-top: 50px;
+  margin-top: 16px;
 }
 .not-found {
   min-height: 100svh;
@@ -1087,7 +1120,9 @@ main:focus {
     background-position: 60% top;
   }
   .team-page::before,
-  .projects-page::before {
+  .projects-page::before,
+  .risk-page::before,
+  .generic-detail::before {
     content: '';
     position: absolute;
     inset: 0 0 auto;
@@ -1184,66 +1219,165 @@ main:focus {
     line-height: 1.5;
   }
   .risk-hero {
-    min-height: 350px;
-    padding-top: 45px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 24px;
+    min-height: 0;
+    padding-top: 32px;
+    margin-bottom: 32px;
   }
   .risk-illustration {
-    width: 53%;
-    top: 0;
-    height: 340px;
+    position: static;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin-inline: auto;
+    mask-image: none;
   }
   .risk-heading {
-    width: 60%;
+    width: auto;
+    min-width: 0;
   }
-  .risk-heading h1 {
-    font-size: 49px;
+  .risk-page .risk-heading h1 {
+    font-size: clamp(36px, 5.2vw, 52px);
+    white-space: normal;
   }
   .project-subtitle {
-    font-size: 25px;
-    margin-left: 35px;
+    font-size: 22px;
+    margin: 16px 0 0;
+    line-height: 1.45;
+  }
+  .risk-event {
+    margin-top: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .risk-event .award {
+    font-size: 17px;
+    padding: 10px 16px;
+  }
+  .risk-event time {
+    font-size: 16px;
+    padding-left: 16px;
   }
   .risk-lower {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
   }
   .risk-aside {
     border-left: 0;
     border-top: 1px solid #353044;
-    padding: 30px 0 0;
+    padding: 28px 0 0;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 40px;
-  }
-  .risk-aside .section-label:nth-of-type(2) {
-    grid-row: 1;
-    grid-column: 2;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
   }
   .technology-list {
-    margin: 20px 0;
-    max-width: 330px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 20px 0 0;
+    gap: 12px;
   }
   .technology-list li {
-    font-size: 13px;
+    font-size: 14px;
+    gap: 10px;
+    padding: 14px 10px;
+    border: 1px solid #343044;
+    border-radius: 12px;
+    background: #0c1220cc;
+  }
+  .technology-list svg {
+    width: 32px;
+    height: 32px;
   }
   .team-avatars {
-    margin: 20px 0;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0 0;
   }
-  .team-avatars img {
-    width: 45px;
-    height: 45px;
+  .team-avatars img,
+  .team-avatars > span {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
   }
   .aside-note {
-    grid-column: 2;
+    grid-column: 1 / -1;
     margin: 0;
+    font-size: 13px;
   }
   .capabilities {
-    margin-bottom: 35px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .capability,
+  .capability:last-child {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 10px 8px;
+    align-content: start;
+    padding: 14px 12px;
+    border: 1px solid #343044;
+    border-radius: 14px;
+    background: #0c1220e8;
+  }
+  .capability > div {
+    display: contents;
+  }
+  .capability > svg {
+    width: 28px;
+    height: 28px;
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .capability h2 {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 18px;
+    margin: 0;
+  }
+  .capability p {
+    grid-column: 1 / -1;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+  .risk-screens {
+    gap: 20px;
+  }
+  .risk-screens figcaption {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .concept-note {
+    line-height: 1.5;
   }
   .generic-layout {
-    margin-top: 90px;
+    margin-top: 40px;
     gap: 30px;
   }
-  .generic-layout h1 {
-    font-size: 45px;
+  .generic-detail .generic-layout h1 {
+    font-size: clamp(34px, 5.4vw, 48px);
+    overflow-wrap: anywhere;
+  }
+  .generic-detail .generic-layout .eyebrow {
+    font-size: 13px;
+    line-height: 1.6;
+    letter-spacing: 0.08em;
+    margin-bottom: 18px;
+  }
+  .generic-layout .project-subtitle {
+    margin: 16px 0 20px;
+  }
+  .project-visual img {
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    background: #0c1220c4;
+    border: 1px solid #343044;
+    border-radius: 16px;
+  }
+  .detail-note {
+    font-size: 13px;
   }
 }
 @media (max-width: 1000px) {
@@ -1342,6 +1476,45 @@ main:focus {
   .projects-grid {
     grid-template-columns: minmax(0, 1fr);
   }
+  .risk-hero,
+  .generic-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .risk-hero {
+    padding-top: 28px;
+    gap: 20px;
+  }
+  .risk-page .risk-heading h1 {
+    font-size: clamp(34px, 10vw, 46px);
+  }
+  .project-subtitle {
+    font-size: 20px;
+  }
+  .capabilities {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .risk-screens,
+  .risk-aside {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .section-label {
+    font-size: 14px;
+  }
+  .generic-layout {
+    margin-top: 28px;
+    gap: 24px;
+  }
+  .generic-detail .generic-layout h1 {
+    font-size: clamp(34px, 8.9vw, 44px);
+  }
+  .project-visual {
+    width: 100%;
+    max-width: 440px;
+    margin-inline: auto;
+  }
+  .project-return {
+    margin-top: 32px;
+  }
 }
 @media (max-width: 600px) {
   .inner-page {
@@ -1433,118 +1606,6 @@ main:focus {
   }
   .award {
     font-size: 15px;
-  }
-  .risk-page .back-link {
-    font-size: 18px;
-  }
-  .risk-hero {
-    padding-top: 35px;
-    min-height: 510px;
-  }
-  .risk-heading {
-    width: 100%;
-  }
-  .risk-heading h1 {
-    font-size: 43px;
-  }
-  .project-subtitle {
-    font-size: 22px;
-    margin: 13px 0 0 25px;
-    max-width: 310px;
-  }
-  .risk-event {
-    margin-top: 25px;
-    gap: 16px;
-  }
-  .risk-event .award {
-    font-size: 17px;
-    padding: 9px 15px;
-  }
-  .risk-event time {
-    font-size: 16px;
-    padding-left: 16px;
-  }
-  .risk-illustration {
-    top: 180px;
-    right: -5%;
-    width: 110%;
-    height: 330px;
-    max-width: none;
-  }
-  .capabilities {
-    grid-template-columns: 1fr 1fr;
-    gap: 26px 16px;
-    margin-bottom: 35px;
-  }
-  .capability {
-    border: 0;
-    padding: 0;
-    gap: 12px;
-  }
-  .capability > svg {
-    width: 35px;
-    height: 40px;
-  }
-  .capability h2 {
-    font-size: 18px;
-  }
-  .capability p {
-    font-size: 13px;
-  }
-  .risk-screens {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-  .risk-screens figcaption {
-    font-size: 14px;
-  }
-  .concept-note {
-    font-size: 13px;
-  }
-  .risk-aside {
-    display: block;
-  }
-  .section-label {
-    font-size: 15px;
-  }
-  .technology-list {
-    margin-bottom: 36px;
-    max-width: none;
-  }
-  .technology-list li {
-    font-size: 13px;
-  }
-  .technology-list svg {
-    width: 35px;
-  }
-  .team-avatars {
-    gap: 14px;
-  }
-  .team-avatars img {
-    width: 45px;
-    height: 48px;
-  }
-  .aside-note {
-    font-size: 13px;
-  }
-  .generic-layout {
-    grid-template-columns: 1fr;
-    margin-top: 55px;
-    gap: 30px;
-  }
-  .generic-layout .eyebrow {
-    font-size: 12px;
-    line-height: 1.6;
-  }
-  .generic-layout .project-subtitle {
-    margin-left: 0;
-  }
-  .generic-layout > img {
-    width: 80%;
-    margin: auto;
-  }
-  .detail-note {
-    margin-top: 30px;
   }
   .not-found {
     padding: 165px 7% 70px;

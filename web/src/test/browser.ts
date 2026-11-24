@@ -15,6 +15,10 @@ export function mockBrowser(reduced = true) {
     vi.fn(() => media),
   );
   vi.stubGlobal('scrollTo', vi.fn<() => void>());
+  Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
+    configurable: true,
+    value: vi.fn<() => void>(),
+  });
   let intersection: IntersectionObserverCallback | undefined;
   const disconnect = vi.fn<() => void>();
   const observer: IntersectionObserver = {

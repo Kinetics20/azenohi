@@ -2,6 +2,14 @@ import { ArrowLeft, Cloud, CodeXml, Hexagon, Zap } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { Icon } from '../components/layout/Icon';
 import { capabilities, projects } from '../data/content';
+function BackToProjects({ slug }: { slug: string }) {
+  return (
+    <Link className="back-link" to={`/projects#project-${slug}`}>
+      <ArrowLeft aria-hidden="true" />
+      Back to projects
+    </Link>
+  );
+}
 export function NotFound() {
   return (
     <section className="not-found">
@@ -24,10 +32,7 @@ export function ProjectDetail() {
   if (project.slug !== 'risk-miner')
     return (
       <section className="inner-page generic-detail">
-        <Link className="back-link" to="/projects">
-          <ArrowLeft aria-hidden="true" />
-          Projects
-        </Link>
+        <BackToProjects slug={project.slug} />
         <div className="generic-layout">
           <div>
             <p className="eyebrow">
@@ -36,21 +41,25 @@ export function ProjectDetail() {
             <h1>{project.title}</h1>
             <p className="project-subtitle">{project.description}</p>
             {project.award && <span className="award">{project.award}</span>}
-            <p className="detail-note">Project overview from the AzenoHI portfolio concept.</p>
           </div>
-          <img
-            src={`/images/projects/${project.slug}.webp`}
-            alt={`${project.title} concept illustration`}
-          />
+          <figure className="project-visual">
+            <img
+              src={`/images/projects/${project.slug}.webp`}
+              alt={`${project.title} concept illustration`}
+            />
+            <figcaption className="detail-note">
+              Project overview from the AzenoHI portfolio concept.
+            </figcaption>
+          </figure>
+        </div>
+        <div className="project-return">
+          <BackToProjects slug={project.slug} />
         </div>
       </section>
     );
   return (
     <section className="inner-page risk-page">
-      <Link className="back-link" to="/projects">
-        <ArrowLeft aria-hidden="true" />
-        Projects
-      </Link>
+      <BackToProjects slug={project.slug} />
       <div className="risk-hero">
         <div className="risk-heading">
           <h1>
@@ -103,39 +112,46 @@ export function ProjectDetail() {
           <p className="concept-note">Concept visuals · illustrative project views</p>
         </div>
         <aside className="risk-aside">
-          <h2 className="section-label">
-            TECHNOLOGY
-            <span />
-          </h2>
-          <ul className="technology-list">
-            {[
-              { name: 'Python', Icon: CodeXml },
-              { name: 'FastAPI', Icon: Zap },
-              { name: 'Kubernetes', Icon: Hexagon },
-              { name: 'GCP', Icon: Cloud },
-            ].map((item) => (
-              <li key={item.name}>
-                <item.Icon aria-hidden="true" />
-                <span>{item.name}</span>
-              </li>
-            ))}
-          </ul>
-          <h2 className="section-label">
-            TEAM — AzenoHI
-            <span />
-          </h2>
-          <div className="team-avatars">
-            {[1, 2, 3, 4].map((portrait) => (
-              <img
-                key={portrait}
-                src={`/images/risk-miner/team-${portrait}.webp`}
-                alt="Project team portrait from concept"
-              />
-            ))}
-            <span>+1</span>
-          </div>
+          <section aria-labelledby="project-technology">
+            <h2 className="section-label" id="project-technology">
+              TECHNOLOGY
+              <span />
+            </h2>
+            <ul className="technology-list">
+              {[
+                { name: 'Python', Icon: CodeXml },
+                { name: 'FastAPI', Icon: Zap },
+                { name: 'Kubernetes', Icon: Hexagon },
+                { name: 'GCP', Icon: Cloud },
+              ].map((item) => (
+                <li key={item.name}>
+                  <item.Icon aria-hidden="true" />
+                  <span>{item.name}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+          <section aria-labelledby="project-team">
+            <h2 className="section-label" id="project-team">
+              TEAM — AzenoHI
+              <span />
+            </h2>
+            <div className="team-avatars">
+              {[1, 2, 3, 4].map((portrait) => (
+                <img
+                  key={portrait}
+                  src={`/images/risk-miner/team-${portrait}.webp`}
+                  alt="Project team portrait from concept"
+                />
+              ))}
+              <span>+1</span>
+            </div>
+          </section>
           <p className="aside-note">Team and technology shown in the project concept.</p>
         </aside>
+      </div>
+      <div className="project-return">
+        <BackToProjects slug={project.slug} />
       </div>
     </section>
   );

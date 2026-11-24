@@ -44,8 +44,12 @@ describe('Portfolio navigation and content', () => {
     for (const title of ['Detect', 'Predict', 'Analyse', 'Support'])
       expect(screen.getByRole('heading', { name: title })).toBeVisible();
     expect(screen.getByText('Concept visuals · illustrative project views')).toBeVisible();
-    await user.click(within(screen.getByRole('main')).getByRole('link', { name: 'Projects' }));
+    await user.click(
+      within(screen.getByRole('main')).getAllByRole('link', { name: 'Back to projects' })[0]!,
+    );
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('From Hackathons');
+    expect(document.getElementById('project-risk-miner')).toHaveFocus();
+    expect(window.location.hash).toBe('#project-risk-miner');
   });
   it.each(['captrace', 'done', 'privymeet', 'productivity-suite', 'risktrace'])(
     'provides a real detail view for %s',
@@ -58,6 +62,15 @@ describe('Portfolio navigation and content', () => {
       ).toBeVisible();
     },
   );
+  it('restores a directly linked project card and tolerates an unknown return anchor', () => {
+    window.history.replaceState({}, '', '/projects#project-done');
+    const view = render(<App />);
+    expect(document.getElementById('project-done')).toHaveFocus();
+    view.unmount();
+    window.history.replaceState({}, '', '/projects#missing-card');
+    render(<App />);
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('From Hackathons');
+  });
   it.each(['/unknown', '/projects/unknown'])('provides a useful 404 at %s', (path) => {
     window.history.replaceState({}, '', path);
     render(<App />);

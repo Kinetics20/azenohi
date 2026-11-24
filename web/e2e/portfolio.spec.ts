@@ -44,17 +44,17 @@ test('navigation, project order, details, browser history and 404', async ({ pag
   await cards.nth(5).click();
   await expect(page).toHaveURL(/\/projects\/risk-miner$/);
   await expect(page.getByRole('heading', { name: 'Detect' })).toBeVisible();
-  await page.getByRole('main').getByRole('link', { name: 'Projects', exact: true }).click();
+  await page.getByRole('main').getByRole('link', { name: 'Back to projects' }).first().click();
   await page.goBack();
   await expect(page).toHaveURL(/risk-miner$/);
   await page.goForward();
-  await expect(page).toHaveURL(/\/projects$/);
+  await expect(page).toHaveURL(/\/projects#project-risk-miner$/);
   for (let i = 0; i < 5; i++) {
     await cards.nth(i).click();
     await expect(
       page.getByText('Project overview from the AzenoHI portfolio concept.'),
     ).toBeVisible();
-    await page.getByRole('main').getByRole('link', { name: 'Projects', exact: true }).click();
+    await page.getByRole('main').getByRole('link', { name: 'Back to projects' }).first().click();
   }
   await page.getByRole('link', { name: 'AzenoHI.dev — Home' }).click();
   await expect(page).toHaveURL(/\/$/);

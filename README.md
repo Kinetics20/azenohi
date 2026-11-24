@@ -189,6 +189,8 @@ See the [station comparison](docs/scene-refinement.md) and
 [mobile layout and loading review](docs/mobile-home.md).
 The [mobile pages review](docs/mobile-pages.md) covers Team, Projects, Journey
 and the shared navigation.
+The [project detail review](docs/mobile-project-details.md) covers Risk Miner,
+the five overview pages and the return to the matching project card.
 [Motion reference notes](docs/motion-reference.md) distinguish observation from
 artistic approximations; the short source video does not establish exact periods.
 
