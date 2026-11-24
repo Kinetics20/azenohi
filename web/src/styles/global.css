@@ -176,25 +176,6 @@ main:focus {
   max-width: 750px;
   line-height: 0.98;
 }
-.ribbon {
-  position: absolute;
-  pointer-events: none;
-  z-index: 4;
-  background: linear-gradient(0deg, #ed002b99, #ed002b05);
-  border: 1px solid #ff204d55;
-  transform: rotate(-42deg);
-  width: 680px;
-  height: 70px;
-}
-.ribbon-left {
-  left: -270px;
-  bottom: 18%;
-}
-.ribbon-right {
-  right: -220px;
-  bottom: 23%;
-  height: 140px;
-}
 .motion-control {
   position: absolute;
   z-index: 8;
@@ -367,14 +348,6 @@ main:focus {
   .scene-sky,
   .scene-foreground {
     object-fit: cover;
-  }
-  .ribbon-left {
-    bottom: 15%;
-    height: 40px;
-  }
-  .ribbon-right {
-    bottom: 26%;
-    height: 60px;
   }
   .motion-control {
     bottom: 20px;
@@ -1497,16 +1470,6 @@ main:focus {
   background-image: url('/images/scene/risk-backdrop.webp');
 }
 
-@media (max-width: 600px) {
-  .ribbon-left {
-    left: -550px;
-    bottom: 8%;
-  }
-  .ribbon-right {
-    right: -510px;
-    bottom: 24%;
-  }
-}
 .journey-heading {
   text-shadow:
     0 2px 12px #020814,

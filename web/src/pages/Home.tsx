@@ -11,8 +11,6 @@ export function Home() {
           <em>In</em>telligence
         </PageTitle>
       </div>
-      <div className="ribbon ribbon-left" aria-hidden="true" />
-      <div className="ribbon ribbon-right" aria-hidden="true" />
     </section>
   );
 }
