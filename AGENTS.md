@@ -1,20 +1,15 @@
-# Working in this repository
+# Working in AzenoHI
 
-Read the [constitution](.specify/memory/constitution.md) before planning or making changes.
-Write agent guidance and all Spec Kit artifacts in English.
+Read `.specify/memory/constitution.md` and `docs/adr/001-static-frontend.md`.
+Write guidance and Spec Kit artifacts in English. Use only `main`; feature
+artifacts live in `specs/001-azenohi-website/` independently of branch names.
 
-- Setup and checks: [README.md](README.md), [Makefile](Makefile)
-  and [.pre-commit-config.yaml](.pre-commit-config.yaml).
-- Backend: [api/README.md](api/README.md). Frontend: [web/README.md](web/README.md).
-- AI: [docs/ai.md](docs/ai.md). Versions: [docs/versions.md](docs/versions.md).
-- Spec Kit workflow and skill invocations: [docs/spec-driven.md](docs/spec-driven.md).
-- Official skills, project MCP servers, and pinned CLI wrappers:
-  [docs/agent-tooling.md](docs/agent-tooling.md).
-
-Vendor skills provide workflow guidance. Preserve this template's existing
-architecture, providers, deployment, and quality tools when applying them.
-Use the project CLI wrappers and the Atlassian v2 MCP for the installed skills.
-
-Plans and tasks must reuse the existing template and its actual `api/` and `web/` paths.
-Read the configuration instead of copying its requirements into the constitution
-or rebuilding infrastructure that is already available.
+- Use the retained React / TypeScript / Vite application in `web/`.
+- `npm --prefix web ci`, `npm --prefix web run check`, `npm --prefix web run test:e2e`.
+- Preserve all four 90% coverage gates, type-aware lint, accessibility and browser checks.
+- Local checks only; no GitHub Actions, dependency audits, backend or telemetry.
+- Keep text and navigation in HTML. Never use a page screenshot as the interface.
+- Source materials and original generated images are immutable references.
+- Record source, modifications and review status in `docs/assets.md` and `docs/content-review.md`.
+- Do not publish the website unless explicitly requested. The repository is private.
+- Do not modify the source repository maintained by Paweł Konior.

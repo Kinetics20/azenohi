@@ -1,0 +1,38 @@
+[
+  {
+    "path": "design/reference/projects.png",
+    "source": "/home/lipov/Downloads/projects.png",
+    "sha256": "2affb200161b114e60cc6f307ea253b235248ea1757d6ad994baaf661ee0904a",
+    "bytes": 1870725
+  },
+  {
+    "path": "design/reference/journey.png",
+    "source": "/home/lipov/Downloads/journey.png",
+    "sha256": "36ca0c12292ff5c894a29efb87776af99927d7534ca0540edf967791c2c1b86b",
+    "bytes": 2184317
+  },
+  {
+    "path": "design/reference/home.png",
+    "source": "/home/lipov/Downloads/home.png",
+    "sha256": "5a85270920b0e64856e7b03c1402da68763b1df6f71bb42507cda0779dfc4ed6",
+    "bytes": 2141526
+  },
+  {
+    "path": "design/reference/team.png",
+    "source": "/home/lipov/Downloads/team.png",
+    "sha256": "40ea68c7cbda5bdc6655fb7941d584528aadfb9e48d152db1cc7094fe508242e",
+    "bytes": 1913572
+  },
+  {
+    "path": "design/reference/risk_miner.png",
+    "source": "/home/lipov/Downloads/risk_miner.png",
+    "sha256": "9956319a9fcfb5d8b74b31c25964c1b1a95748608393d2dbd413cd81695bba24",
+    "bytes": 1959446
+  },
+  {
+    "path": "design/reference/animated_front_page.mp4",
+    "source": "/home/lipov/Downloads/animated_front_page.mp4",
+    "sha256": "00ece504283b68e28261c1f2764ac45159a1c1e29fab749448bacee5fdebc031",
+    "bytes": 7187411
+  }
+]

@@ -1,22 +1,6 @@
-import { QueryClientProvider } from '@tanstack/react-query';
-import { useState } from 'react';
-
-import { createQueryClient } from './query-client';
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Header } from '../components/layout/Header';
+import { Home } from '../pages/Home';
 export function App() {
-  const [queryClient] = useState(createQueryClient);
-  return (
-    <QueryClientProvider client={queryClient}>
-      <header className="app-header">
-        <nav className="app-nav" aria-label="Nawigacja główna">
-          <a href="/" aria-current="page">
-            Start
-          </a>
-        </nav>
-      </header>
-      <main>
-        <p>Aplikacja działa.</p>
-      </main>
-    </QueryClientProvider>
-  );
+  return <BrowserRouter><a className="skip-link" href="#main-content">Skip to content</a><Header /><main id="main-content" tabIndex={-1}><Routes><Route path="*" element={<Home />} /></Routes></main></BrowserRouter>;
 }

@@ -1,5 +1,5 @@
 {
-  "name": "application-web",
+  "name": "azenohi",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -20,33 +20,37 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test:e2e:compose": "playwright test",
     "check": "npm run lint && npm run format:check && npm run typecheck && npm run test && npm run build"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "5.3.0",
+    "@react-three/fiber": "9.8.2",
+    "lucide-react": "1.79.0",
     "react": "19.3.1",
     "react-dom": "19.3.1",
-    "@tanstack/react-query": "5.107.2",
-    "zod": "4.6.7"
+    "react-router-dom": "7.18.7",
+    "three": "0.187.0"
   },
   "devDependencies": {
-    "@types/react": "19.3.0",
-    "@types/react-dom": "19.3.0",
-    "@types/node": "26.6.6",
-    "typescript": "7.0.2",
-    "vite": "8.3.8",
-    "@vitejs/plugin-react": "6.3.0",
-    "vitest": "5.1.0",
-    "@vitest/coverage-v8": "5.1.0",
-    "@testing-library/react": "16.3.3",
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.65.1",
+    "@react-three/test-renderer": "9.1.1",
     "@testing-library/dom": "10.4.2",
     "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.3",
     "@testing-library/user-event": "14.6.12",
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/three": "0.187.0",
+    "@vitejs/plugin-react": "6.3.0",
+    "@vitest/coverage-v8": "5.1.0",
     "jsdom": "31.0.1",
-    "prettier": "3.10.1",
-    "@playwright/test": "1.65.1",
-    "@axe-core/playwright": "4.14.0",
     "oxlint": "1.94.0",
-    "oxlint-tsgolint": "7.0.2007"
+    "oxlint-tsgolint": "7.0.2007",
+    "prettier": "3.10.1",
+    "typescript": "7.0.2",
+    "vite": "8.3.8",
+    "vitest": "5.1.0"
   }
 }

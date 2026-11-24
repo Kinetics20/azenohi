@@ -1,7 +1,11 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "vite",
-  "buildCommand": "npx --yes --package npm@12.2.2 -- npm run build",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "installCommand": "npx --yes --package npm@12.2.2 -- npm ci --include=dev --no-audit --no-fund"
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/((?!.*\\.).*)",
+      "destination": "/index.html"
+    }
+  ]
 }

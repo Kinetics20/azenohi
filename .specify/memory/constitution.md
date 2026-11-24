@@ -31,4 +31,10 @@ Specifications, plans, and implementations must comply with these principles.
 Document and version amendments: MAJOR for incompatible changes, MINOR for additions,
 and PATCH for clarifications. Refer to `AGENTS.md` for working guidance.
 
-**Version**: 2.0.0 | **Ratified**: 2026-11-17 | **Last Amended**: 2026-11-17
+**Version**: 2.1.0 | **Ratified**: 2026-11-17 | **Last Amended**: 2026-11-24
+
+## AzenoHI scope amendment
+
+The user-approved portfolio uses only `web/`. See ADR 001. Remove unused backend
+and AI infrastructure while preserving frontend quality checks and Spec Kit.
+Keep a single `main` branch and perform all verification locally.
