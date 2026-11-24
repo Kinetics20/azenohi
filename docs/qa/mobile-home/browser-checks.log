@@ -1,0 +1,64 @@
+npm notice run azenohi@0.1.0 test:e2e
+npm notice run playwright test
+
+Running 48 tests using 1 worker
+
+(node:74490) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › e2e/motion.spec.ts:13:1 › real WebGL changes Earth and station pixels independently, pauses and survives context loss (28.3s)
+  ✓   2 [chromium] › e2e/motion.spec.ts:43:1 › missing texture gracefully restores the poster (1.6s)
+  ✓   3 [chromium] › e2e/motion.spec.ts:51:1 › compact scene loads smaller maps, pauses, and keeps its quality tier across resizing (3.7s)
+  ✓   4 [chromium] › e2e/motion.spec.ts:78:1 › WebGL disabled leaves working content and navigation (303ms)
+  ✓   5 [chromium] › e2e/motion.spec.ts:91:1 › slow scene assets never block navigation (538ms)
+  ✓   6 [chromium] › e2e/motion.spec.ts:103:3 › returning Home at 390px keeps the current artwork while 3D loads (3.4s)
+  ✓   7 [chromium] › e2e/motion.spec.ts:103:3 › returning Home at 1280px keeps the current artwork while 3D loads (7.7s)
+  ✓   8 [chromium] › e2e/portfolio.spec.ts:11:1 › all core routes refresh, remain accessible and load their images (5.4s)
+  ✓   9 [chromium] › e2e/portfolio.spec.ts:36:1 › navigation, project order, details, browser history and 404 (1.1s)
+  ✓  10 [chromium] › e2e/portfolio.spec.ts:65:1 › keyboard skip link and mobile menu Escape (382ms)
+  ✓  11 [chromium] › e2e/portfolio.spec.ts:85:1 › responsive layouts at all acceptance widths (6.5s)
+  ✓  12 [chromium] › e2e/portfolio.spec.ts:103:1 › no API, external runtime requests or 3D chunk in reduced motion (323ms)
+(node:75005) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  13 [firefox] › e2e/motion.spec.ts:13:1 › real WebGL changes Earth and station pixels independently, pauses and survives context loss
+  -  14 [firefox] › e2e/motion.spec.ts:43:1 › missing texture gracefully restores the poster
+  -  15 [firefox] › e2e/motion.spec.ts:51:1 › compact scene loads smaller maps, pauses, and keeps its quality tier across resizing
+  -  16 [firefox] › e2e/motion.spec.ts:78:1 › WebGL disabled leaves working content and navigation
+  -  17 [firefox] › e2e/motion.spec.ts:91:1 › slow scene assets never block navigation
+  -  18 [firefox] › e2e/motion.spec.ts:103:3 › returning Home at 390px keeps the current artwork while 3D loads
+  -  19 [firefox] › e2e/motion.spec.ts:103:3 › returning Home at 1280px keeps the current artwork while 3D loads
+  ✓  20 [firefox] › e2e/portfolio.spec.ts:11:1 › all core routes refresh, remain accessible and load their images (3.7s)
+  ✓  21 [firefox] › e2e/portfolio.spec.ts:36:1 › navigation, project order, details, browser history and 404 (1.7s)
+  ✓  22 [firefox] › e2e/portfolio.spec.ts:65:1 › keyboard skip link and mobile menu Escape (565ms)
+  ✓  23 [firefox] › e2e/portfolio.spec.ts:85:1 › responsive layouts at all acceptance widths (2.3s)
+  ✓  24 [firefox] › e2e/portfolio.spec.ts:103:1 › no API, external runtime requests or 3D chunk in reduced motion (402ms)
+(node:75595) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  25 [webkit] › e2e/motion.spec.ts:13:1 › real WebGL changes Earth and station pixels independently, pauses and survives context loss
+  -  26 [webkit] › e2e/motion.spec.ts:43:1 › missing texture gracefully restores the poster
+  -  27 [webkit] › e2e/motion.spec.ts:51:1 › compact scene loads smaller maps, pauses, and keeps its quality tier across resizing
+  -  28 [webkit] › e2e/motion.spec.ts:78:1 › WebGL disabled leaves working content and navigation
+  -  29 [webkit] › e2e/motion.spec.ts:91:1 › slow scene assets never block navigation
+  -  30 [webkit] › e2e/motion.spec.ts:103:3 › returning Home at 390px keeps the current artwork while 3D loads
+  -  31 [webkit] › e2e/motion.spec.ts:103:3 › returning Home at 1280px keeps the current artwork while 3D loads
+  ✓  32 [webkit] › e2e/portfolio.spec.ts:11:1 › all core routes refresh, remain accessible and load their images (4.1s)
+  ✓  33 [webkit] › e2e/portfolio.spec.ts:36:1 › navigation, project order, details, browser history and 404 (2.2s)
+  ✓  34 [webkit] › e2e/portfolio.spec.ts:65:1 › keyboard skip link and mobile menu Escape (804ms)
+  ✓  35 [webkit] › e2e/portfolio.spec.ts:85:1 › responsive layouts at all acceptance widths (4.1s)
+  ✓  36 [webkit] › e2e/portfolio.spec.ts:103:1 › no API, external runtime requests or 3D chunk in reduced motion (1.2s)
+(node:76428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  37 [mobile-chromium] › e2e/motion.spec.ts:13:1 › real WebGL changes Earth and station pixels independently, pauses and survives context loss
+  -  38 [mobile-chromium] › e2e/motion.spec.ts:43:1 › missing texture gracefully restores the poster
+  -  39 [mobile-chromium] › e2e/motion.spec.ts:51:1 › compact scene loads smaller maps, pauses, and keeps its quality tier across resizing
+  -  40 [mobile-chromium] › e2e/motion.spec.ts:78:1 › WebGL disabled leaves working content and navigation
+  -  41 [mobile-chromium] › e2e/motion.spec.ts:91:1 › slow scene assets never block navigation
+  -  42 [mobile-chromium] › e2e/motion.spec.ts:103:3 › returning Home at 390px keeps the current artwork while 3D loads
+  -  43 [mobile-chromium] › e2e/motion.spec.ts:103:3 › returning Home at 1280px keeps the current artwork while 3D loads
+  ✓  44 [mobile-chromium] › e2e/portfolio.spec.ts:11:1 › all core routes refresh, remain accessible and load their images (2.2s)
+  ✓  45 [mobile-chromium] › e2e/portfolio.spec.ts:36:1 › navigation, project order, details, browser history and 404 (1.4s)
+  ✓  46 [mobile-chromium] › e2e/portfolio.spec.ts:65:1 › keyboard skip link and mobile menu Escape (588ms)
+  ✓  47 [mobile-chromium] › e2e/portfolio.spec.ts:85:1 › responsive layouts at all acceptance widths (1.6s)
+  ✓  48 [mobile-chromium] › e2e/portfolio.spec.ts:103:1 › no API, external runtime requests or 3D chunk in reduced motion (500ms)
+
+  21 skipped
+  27 passed (1.5m)

@@ -1,5 +1,6 @@
 import type * as FiberModule from '@react-three/fiber';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
+import { flushGlobalEffects } from '@react-three/fiber';
 import { create } from '@react-three/test-renderer';
 import { describe, expect, it, vi } from 'vitest';
 import { Texture } from 'three';
@@ -35,7 +36,11 @@ describe('React Three Fiber integration', () => {
       const renderer = await create(
         <SceneObjects active onReady={onReady} onFailure={onFailure} />,
       );
-      expect(onReady).toHaveBeenCalled();
+      expect(onReady).not.toHaveBeenCalled();
+      act(() => flushGlobalEffects('after', 0));
+      expect(onReady).toHaveBeenCalledOnce();
+      act(() => flushGlobalEffects('after', 16));
+      expect(onReady).toHaveBeenCalledOnce();
       const group = renderer.scene.instance;
       const earth = group.getObjectByName('Earth')!;
       const clouds = group.getObjectByName('Cloud layer')!;

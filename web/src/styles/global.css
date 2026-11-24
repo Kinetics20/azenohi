@@ -151,6 +151,13 @@ main:focus {
   object-fit: cover;
   object-position: 50% 50%;
 }
+.scene-poster {
+  transition: opacity 0s;
+}
+.scene-live {
+  transition: opacity 180ms ease-out;
+  opacity: 0;
+}
 .home-copy {
   position: relative;
   z-index: 5;
@@ -218,7 +225,12 @@ main:focus {
   z-index: 6;
 }
 .scene-loaded .scene-poster {
-  visibility: hidden;
+  /* Keep the still opaque until the canvas covers it, avoiding a dark flash. */
+  opacity: 0;
+  transition-delay: 180ms;
+}
+.scene-loaded .scene-live {
+  opacity: 1;
 }
 @media (min-aspect-ratio: 2/1) {
   .home-page {
@@ -248,7 +260,7 @@ main:focus {
     padding: 170px 6% 0;
   }
   .home-copy h1 {
-    font-size: 76px;
+    font-size: clamp(54px, 7.2vw, 68px);
   }
   .eyebrow {
     font-size: 16px;
@@ -318,14 +330,14 @@ main:focus {
     width: 40px;
   }
   .home-page {
-    min-height: 750px;
+    min-height: 700px;
     height: 100svh;
   }
   .home-copy {
-    padding-top: 155px;
+    padding-top: 116px;
   }
   .home-copy h1 {
-    font-size: clamp(43px, 12.5vw, 70px);
+    font-size: clamp(40px, 11.8vw, 68px);
     line-height: 1.07;
     letter-spacing: -0.045em;
   }
@@ -340,9 +352,10 @@ main:focus {
     height: 2px;
   }
   .hero-art {
-    width: 240%;
-    left: -140%;
-    height: 100%;
+    width: 200%;
+    left: -100%;
+    top: 160px;
+    height: calc(100% - 160px);
   }
   .scene-poster,
   .scene-sky,

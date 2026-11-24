@@ -15,7 +15,8 @@ included in `web/dist`.
 | images/journey/{2017,2018,2020,2023,2025}.webp | Illustrations cropped from journey.png; dates and descriptions rendered separately in HTML. |
 | images/risk-miner/{detect,analyse,predict}.webp | Three reference dashboard concepts cropped from risk_miner.png; not functional dashboards. |
 | images/risk-miner/team-*.webp | Four unnamed project portraits from risk_miner.png; no inferred identities. |
-| images/scene/*.webp, images/journey/mountain.webp | ImageGen edits of supplied references. See generated-assets.md for exact prompts, source paths and alpha checks. |
+| images/scene/{sky,foreground,space-backdrop,risk-backdrop}.webp, images/journey/mountain.webp | ImageGen edits of supplied references. See generated-assets.md for exact prompts, source paths and alpha checks. |
+| images/scene/still-{desktop,mobile}.webp | Transparent 1672×941 captures of the current procedural WebGL scene at rest; WebP quality 94, full alpha range 0–255. Captured by web/scripts/capture-scene-stills.ts. The sky and foreground remain separate shared layers. Reviewed against the live desktop and mobile scenes. |
 
 The user supplied these designs for this project. Their underlying third-party
 rights and consent to publicly identify people remain subject to owner review.

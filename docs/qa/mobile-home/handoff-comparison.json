@@ -1,0 +1,18 @@
+[
+  {
+    "viewport": [
+      390,
+      844
+    ],
+    "mean_absolute_rgb_difference_0_to_255": 1.0103,
+    "note": "Paused at the initial pose; compares loading still and first complete WebGL frame, including HTML. Encoding and GPU rasterization can differ."
+  },
+  {
+    "viewport": [
+      1280,
+      844
+    ],
+    "mean_absolute_rgb_difference_0_to_255": 0.8918,
+    "note": "Paused at the initial pose; compares loading still and first complete WebGL frame, including HTML. Encoding and GPU rasterization can differ."
+  }
+]

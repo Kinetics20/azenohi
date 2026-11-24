@@ -98,3 +98,50 @@ test('slow scene assets never block navigation', async ({ page }) => {
   await page.getByRole('link', { name: 'Team', exact: true }).click();
   await expect(page).toHaveURL(/\/team$/);
 });
+
+for (const width of [390, 1280]) {
+  test(`returning Home at ${width}px keeps the current artwork while 3D loads`, async ({
+    page,
+  }, testInfo) => {
+    await page.setViewportSize({ width, height: 844 });
+    const requests: string[] = [];
+    page.on('request', (request) => requests.push(new URL(request.url()).pathname));
+    let releaseTextures!: () => void;
+    const textures = new Promise<void>((resolve) => {
+      releaseTextures = resolve;
+    });
+    await page.route('**/textures/**', async (route) => {
+      await textures;
+      await route.continue().catch(() => undefined);
+    });
+    await page.goto('/team');
+    await page.getByRole('link', { name: 'AzenoHI.dev — Home' }).click();
+    const scene = page.locator('[data-scene]');
+    const poster = page.locator('.scene-poster');
+    await expect(scene).toHaveAttribute('data-scene', 'loading');
+    await expect(page.locator('.scene-live')).toHaveCSS('opacity', '0');
+    const expectedImage = `/images/scene/still-${width < 600 ? 'mobile' : 'desktop'}.webp`;
+    await expect
+      .poll(() =>
+        poster.evaluate((image) =>
+          image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0
+            ? new URL(image.currentSrc).pathname
+            : '',
+        ),
+      )
+      .toBe(expectedImage);
+    await page.getByRole('button', { name: 'Pause animation' }).click();
+    await page.screenshot({ path: testInfo.outputPath('current-scene-loading.png') });
+    releaseTextures();
+    await expect(scene).toHaveAttribute('data-scene', 'ready');
+    await expect(page.locator('.scene-live')).toHaveCSS('opacity', '1');
+    await expect(poster).toHaveCSS('opacity', '0');
+    await page.screenshot({ path: testInfo.outputPath('current-scene-ready.png') });
+    if (width < 600) await page.getByRole('button', { name: 'Open menu' }).click();
+    await page.getByRole('navigation').getByRole('link', { name: 'Projects', exact: true }).click();
+    await page.getByRole('link', { name: 'AzenoHI.dev — Home' }).click();
+    await expect(scene).toHaveAttribute('data-scene', 'ready');
+    expect(requests).not.toContain('/images/scene/poster.webp');
+    expect(requests).toContain(expectedImage);
+  });
+}

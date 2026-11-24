@@ -1,0 +1,64 @@
+npm notice run azenohi@0.1.0 check
+npm notice run npm run lint && npm run format:check && npm run typecheck && npm run test && npm run build
+npm notice run azenohi@0.1.0 lint
+npm notice run oxlint --type-aware --deny-warnings
+npm notice run azenohi@0.1.0 format:check
+npm notice run prettier --check .
+Checking formatting...
+All matched files use Prettier code style!
+npm notice run azenohi@0.1.0 typecheck
+npm notice run tsc --noEmit
+npm notice run azenohi@0.1.0 test
+npm notice run vitest run --coverage
+
+ RUN  v5.1.0 /home/lipov/projects/azeno_hi/web
+      Coverage enabled with v8
+
+(node:73991) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+ Test Files  5 passed (5)
+      Tests  23 passed (23)
+   Start at  23:08:19
+   Duration  1.04s (environment 42%, tests 32%, setup 10%, import 10%, worker 4%, transform 2%)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   99.52 |    98.33 |   98.73 |   99.48 |
+ components/scene  |   99.44 |    97.87 |   98.03 |   99.39 |
+  HeroScene.tsx    |     100 |    93.93 |     100 |     100 | 42-44
+  SpaceCanvas.tsx  |   94.44 |      100 |    90.9 |   94.11 | 46-47
+-------------------|---------|----------|---------|---------|-------------------
+
+=============================== Coverage summary ===============================
+Statements   : 99.52% ( 416/418 )
+Branches     : 98.33% ( 118/120 )
+Functions    : 98.73% ( 78/79 )
+Lines        : 99.48% ( 384/386 )
+================================================================================
+npm notice run azenohi@0.1.0 build
+npm notice run npm run typecheck && vite build
+npm notice run azenohi@0.1.0 typecheck
+npm notice run tsc --noEmit
+vite v8.3.8 building client environment for production...
+transforming...
+✓ 2170 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                           0.71 kB │ gzip:   0.42 kB
+dist/assets/inter-latin-wght-normal-Dx4kXJAl.woff2       48.25 kB
+dist/assets/inter-latin-wght-italic-DpCbqKDY.woff2       51.83 kB
+dist/assets/inter-latin-ext-wght-normal-DO1Apj_S.woff2   85.06 kB
+dist/assets/index-CdBJHQaU.css                           20.94 kB │ gzip:   5.66 kB
+dist/assets/index-BKBvjH5L.js                           283.29 kB │ gzip:  90.68 kB
+dist/assets/SpaceCanvas-Do6elJ6g.js                     935.73 kB │ gzip: 249.16 kB
+
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 266ms

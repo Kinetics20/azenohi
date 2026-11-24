@@ -27,6 +27,7 @@ describe('Scene lifecycle', () => {
     const user = userEvent.setup();
     const { container } = render(<HeroScene />);
     expect(container.querySelector('[data-scene]')).toHaveAttribute('data-scene', 'loading');
+    expect(await screen.findByTestId('canvas')).toHaveAttribute('data-active', 'false');
     await user.click(await screen.findByText('Scene ready'));
     expect(container.querySelector('[data-scene]')).toHaveAttribute('data-scene', 'ready');
     await user.click(screen.getByRole('button', { name: 'Pause animation' }));
@@ -51,7 +52,7 @@ describe('Scene lifecycle', () => {
   it('responds to visibility, viewport and preference changes and removes listeners', async () => {
     const browser = mockBrowser(false);
     const { unmount } = render(<HeroScene />);
-    await screen.findByTestId('canvas');
+    await userEvent.click(await screen.findByText('Scene ready'));
     act(() => browser.intersect(false));
     expect(screen.getByTestId('canvas')).toHaveAttribute('data-active', 'false');
     act(() => browser.intersect(true));

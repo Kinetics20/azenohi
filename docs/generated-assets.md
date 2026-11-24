@@ -70,12 +70,13 @@ All three layers are 1672 × 941 pixels (same canvas as the supplied references)
 
 Each optimized output was reopened and visually inspected after encoding.
 
-## Static Home poster
+## Original static Home poster (retired)
 
 - Input: `design/reference/home.png`.
 - Source: `generated_images/home-poster.png`.
-- Web: `web/public/images/scene/poster.webp`, 1672 × 941, RGB, 176350 bytes,
-  WebP quality 87.
+- Former web variant: `web/public/images/scene/poster.webp`, 1672 × 941, RGB,
+  176350 bytes, WebP quality 87. Removed from runtime assets after the scene
+  refinement; the original generated PNG remains preserved.
 - Built-in ImageGen `precise-object-edit`, opaque output.
 - Prompt: remove only logo/brand, navigation/underline, AZENO HI label/line,
   Hybrid Intelligence heading and both straight diagonal red UI ribbons.
@@ -83,8 +84,10 @@ Each optimized output was reopened and visually inspected after encoding.
   lights/horizon, sunrise, upper-right station, man/robot and rocky foreground,
   including positions, scale, framing, light and material detail. No text, UI,
   crop or added objects.
-- Intended use: immediate loading, reduced-motion and failure fallback. Hide the
-  entire poster when the 3D scene is ready; do not layer it behind another station.
+- Superseded by `still-desktop.webp` and `still-mobile.webp`, captured from the
+  current WebGL model. Loading, reduced-motion and failure states share the
+  same sky/foreground and camera framing as the live scene. The old artwork
+  must not be restored as a loading placeholder.
 - Reopened optimized output and visually verified all text/UI was removed.
 
 ## Interior-page space backdrop

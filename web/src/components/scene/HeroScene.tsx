@@ -33,7 +33,10 @@ export function HeroScene() {
   const onFailure = useCallback(() => setFailed(true), []);
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const change = () => setReduced(preference.matches);
+    const change = () => {
+      setReady(false);
+      setReduced(preference.matches);
+    };
     const visibility = () => setVisible(!document.hidden);
     const observer = new IntersectionObserver((entries) =>
       setIntersecting(entries[0]?.isIntersecting ?? false),
@@ -67,18 +70,26 @@ export function HeroScene() {
                 : 'unsupported'
         }
       >
-        <img className="scene-poster" src="/images/scene/poster.webp" alt="" fetchPriority="high" />
+        <img className="scene-sky" src="/images/scene/sky.webp" alt="" fetchPriority="high" />
+        <picture>
+          <source media="(max-width: 600px)" srcSet="/images/scene/still-mobile.webp" />
+          <img
+            className="scene-poster"
+            src="/images/scene/still-desktop.webp"
+            alt=""
+            fetchPriority="high"
+          />
+        </picture>
         {render && (
-          <div className="scene-live" style={{ visibility: ready ? 'visible' : 'hidden' }}>
-            <img className="scene-sky" src="/images/scene/sky.webp" alt="" />
+          <div className="scene-live">
             <SceneBoundary onFailure={onFailure}>
               <Suspense fallback={null}>
-                <SpaceCanvas active={active} onReady={onReady} onFailure={onFailure} />
+                <SpaceCanvas active={active && ready} onReady={onReady} onFailure={onFailure} />
               </Suspense>
             </SceneBoundary>
-            <img className="scene-foreground" src="/images/scene/foreground.webp" alt="" />
           </div>
         )}
+        <img className="scene-foreground" src="/images/scene/foreground.webp" alt="" />
       </div>
       {render ? (
         <button className="motion-control" onClick={() => setPaused(!paused)} aria-pressed={paused}>

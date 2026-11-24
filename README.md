@@ -178,9 +178,15 @@ Procedural reflection/roughness maps shade the metal; cloud occlusion and twilig
 color shade Earth. A fixed underside view is separate from local station rotation.
 The Earth uses terrain normals, an elevated cloud shell with a slight drift,
 fine city lights and a soft dawn halo. Desktop uses 4K maps with an 8K night map;
-portrait screens use 2K maps and a smaller, raised station.
+portrait screens use 2K maps and a smaller station below the title. On phones,
+the Earth and foreground are framed lower to keep the text and station clear.
+Loading and fallback views use transparent stills of the current model, with
+the same sky and foreground as the live scene; the canvas fades in only after
+its first rendered frame. To refresh these stills after a scene change, start
+the dev server and run `node web/scripts/capture-scene-stills.ts`.
 See the [station comparison](docs/scene-refinement.md) and
-[Earth refinement](docs/earth-refinement.md).
+[Earth refinement](docs/earth-refinement.md), plus the
+[mobile layout and loading review](docs/mobile-home.md).
 [Motion reference notes](docs/motion-reference.md) distinguish observation from
 artistic approximations; the short source video does not establish exact periods.
 

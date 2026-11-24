@@ -3,13 +3,13 @@ import { motionAt } from './motion';
 import { buildStation } from './stationModel';
 import { buildEarth } from './earthModel';
 import type { EarthTextures } from './earthModel';
-export function buildScene(textures: EarthTextures, compact = false) {
+export function buildScene(textures: EarthTextures, compact = false, portrait = compact) {
   const root = new THREE.Group();
   const { earth, clouds, atmosphere, sun: sunrise } = buildEarth(textures, compact);
   root.add(earth, clouds, atmosphere, sunrise);
   const placement = new THREE.Group();
-  placement.position.set(compact ? 4.7 : 6.95, compact ? 3 : 2.18, 16);
-  const stationScale = compact ? 0.55 : 1;
+  placement.position.set(portrait ? 3.5 : 6.95, portrait ? 2.1 : 2.18, 16);
+  const stationScale = portrait ? 0.43 : 1;
   placement.scale.setScalar(stationScale);
   placement.rotation.set(-0.25, 0, 0.16);
   root.add(placement);
