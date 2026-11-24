@@ -1,15 +1,48 @@
 import * as THREE from 'three';
 import { motionAt } from './motion';
-const TAU = Math.PI * 2;
+import { buildStation } from './stationModel';
 export type EarthTextures = { day: THREE.Texture; night: THREE.Texture; clouds: THREE.Texture };
-const vertexShader = `varying vec2 vUv; varying vec3 vNormal; varying vec3 vView;
-void main(){vUv=uv;vNormal=normalize(normalMatrix*normal);vec4 p=modelViewMatrix*vec4(position,1.);vView=normalize(-p.xyz);gl_Position=projectionMatrix*p;}`;
-const fragmentShader = `uniform sampler2D dayMap;uniform sampler2D nightMap;uniform sampler2D cloudMap;varying vec2 vUv;varying vec3 vNormal;varying vec3 vView;
-void main(){vec3 n=normalize(vNormal);float sunlight=dot(n,normalize(vec3(-.15,.08,-.9)));float day=smoothstep(-.05,.3,sunlight);vec3 land=texture2D(dayMap,vUv).rgb;vec3 cities=texture2D(nightMap,vUv).rgb;float cloud=texture2D(cloudMap,vUv).r;vec3 col=land*(.07+.26*day)+vec3(.15,.21,.32)*cloud*.12;col+=cities*vec3(4.0,1.15,.55)*(1.-day);float rim=pow(1.-max(dot(n,normalize(vView)),0.),4.);col+=vec3(.13,.23,.6)*rim*.28;gl_FragColor=vec4(col,1.);}`;
-export function buildScene(textures: EarthTextures) {
+const vertexShader = `
+varying vec2 vUv;
+varying vec3 vNormal;
+void main() {
+  vUv = uv;
+  vNormal = normalize(normalMatrix * normal);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.);
+}`;
+const fragmentShader = `
+uniform sampler2D dayMap;
+uniform sampler2D nightMap;
+uniform sampler2D cloudMap;
+varying vec2 vUv;
+varying vec3 vNormal;
+void main() {
+  vec3 n = normalize(vNormal);
+  // The camera is orthographic: its view direction is constant across the horizon.
+  float rim = pow(1. - max(n.z, 0.), 5.);
+  float sunrise = exp(-pow((n.x + .215) * 9., 2.));
+  // Denser, repeating surface detail is an artistic treatment of the reference,
+  // not a geographic globe. This preserves fine lights without an 8K GPU texture.
+  vec2 surfaceUv = fract(vUv * 2.);
+  vec3 land = texture2D(dayMap, surfaceUv).rgb;
+  vec3 cities = pow(texture2D(nightMap, surfaceUv).rgb, vec3(1.7));
+  float cloud = texture2D(cloudMap, surfaceUv).r;
+  float shadow = texture2D(cloudMap, surfaceUv + vec2(.0007, -.0007)).r;
+  vec3 col = vec3(.023, .033, .062) + land * vec3(.11, .10, .14);
+  col += vec3(.23, .24, .34) * cloud;
+  col -= vec3(.03, .028, .025) * shadow;
+  col += cities * vec3(1.8, .79, .44) * (1. - cloud * .65);
+  col += vec3(.10, .15, .29) * rim * .7;
+  col += vec3(.9, .3, .22) * sunrise * pow(rim, 2.) * .65;
+  col += vec3(.17, .09, .11) * cloud * sunrise;
+  vec3 dawn = mix(vec3(.14, .21, .4), vec3(1., .75, .65), sunrise);
+  col += dawn * pow(1. - max(n.z, 0.), 24.) * .8;
+  gl_FragColor = vec4(col, 1.);
+}`;
+export function buildScene(textures: EarthTextures, compact = false) {
   const root = new THREE.Group();
   const earth = new THREE.Mesh(
-    new THREE.SphereGeometry(31, 96, 64),
+    new THREE.SphereGeometry(34.695, 160, 96),
     new THREE.ShaderMaterial({
       vertexShader,
       fragmentShader,
@@ -20,15 +53,23 @@ export function buildScene(textures: EarthTextures) {
       },
     }),
   );
-  earth.position.set(9, -29.7, -23);
+  earth.position.set(8.61, -33.476, -23);
   earth.rotation.set(1.2, 0.9, -0.16);
   earth.name = 'Earth';
   root.add(earth);
   const glow = new THREE.Mesh(
-    new THREE.SphereGeometry(31.075, 96, 64),
+    new THREE.SphereGeometry(34.755, 160, 96),
     new THREE.ShaderMaterial({
       vertexShader,
-      fragmentShader: `varying vec3 vNormal;varying vec3 vView;void main(){float rim=pow(1.-abs(dot(normalize(vNormal),normalize(vView))),7.);gl_FragColor=vec4(.38,.55,1.,rim*.3);}`,
+      fragmentShader: `
+        varying vec3 vNormal;
+        void main() {
+          vec3 n = normalize(vNormal);
+          float edge = (1. - smoothstep(.02, .18, n.z)) * smoothstep(0., .045, n.z);
+          float sunrise = exp(-pow((n.x + .215) * 8., 2.));
+          vec3 tint = mix(vec3(.23, .32, .63), vec3(1., .48, .4), sunrise);
+          gl_FragColor = vec4(tint, edge * .55);
+        }`,
       transparent: true,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
@@ -37,169 +78,27 @@ export function buildScene(textures: EarthTextures) {
   glow.position.copy(earth.position);
   root.add(glow);
   const placement = new THREE.Group();
-  placement.position.set(6.35, 2.25, 16);
-  placement.rotation.set(0.3, 0, 0.16);
+  placement.position.set(compact ? 4.7 : 6.95, compact ? 3 : 2.18, 16);
+  const stationScale = compact ? 0.55 : 1;
+  placement.scale.setScalar(stationScale);
+  placement.rotation.set(-0.25, 0, 0.16);
   root.add(placement);
-  const station = new THREE.Group();
-  station.name = 'Orbital station';
-  placement.add(station);
-  const metal = new THREE.MeshStandardMaterial({
-    color: '#354356',
-    metalness: 0.8,
-    roughness: 0.37,
-  });
-  const dark = new THREE.MeshStandardMaterial({
-    color: '#0d1724',
-    metalness: 0.8,
-    roughness: 0.54,
-  });
-  const trim = new THREE.MeshStandardMaterial({
-    color: '#53677b',
-    metalness: 0.72,
-    roughness: 0.35,
-  });
-  const windows = new THREE.MeshStandardMaterial({
-    color: '#ffca8b',
-    emissive: '#ffb867',
-    emissiveIntensity: 2.3,
-    toneMapped: false,
-  });
-  const red = new THREE.MeshStandardMaterial({
-    color: '#ff1230',
-    emissive: '#ff0022',
-    emissiveIntensity: 2,
-    toneMapped: false,
-  });
-  function ring(radius: number, y: number, tube: number, material: THREE.Material) {
-    const mesh = new THREE.Mesh(new THREE.TorusGeometry(radius, tube, 8, 128), material);
-    mesh.rotation.x = Math.PI / 2;
-    mesh.position.y = y;
-    station.add(mesh);
-  }
-  for (const y of [0.31, 0.49, 0.64]) {
-    ring(2.2, y, 0.048, trim);
-    ring(1.96, y, 0.028, metal);
-  }
-  ring(2.08, 0.45, 0.12, dark);
-  ring(0.83, -0.85, 0.095, metal);
-  ring(0.9, -0.82, 0.035, trim);
-  ring(0.75, -0.95, 0.035, trim);
-  const deck = new THREE.Mesh(
-    new THREE.RingGeometry(1.94, 2.25, 128),
-    new THREE.MeshStandardMaterial({
-      color: '#29394d',
-      metalness: 0.8,
-      roughness: 0.4,
-      side: THREE.DoubleSide,
-    }),
-  );
-  deck.rotation.x = Math.PI / 2;
-  deck.position.y = 0.46;
-  station.add(deck);
-  const core = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.26, 2.0, 20), metal);
-  core.position.y = -0.15;
-  station.add(core);
-  const collar = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.34, 0.22, 32), trim);
-  collar.position.y = 0.5;
-  station.add(collar);
-  const spindle = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.12, 0.8, 12), trim);
-  spindle.position.y = -1.4;
-  station.add(spindle);
-  for (let i = 0; i < 8; i++) {
-    const a = (i * TAU) / 8;
-    const arm = new THREE.Mesh(new THREE.BoxGeometry(1.83, 0.055, 0.095), trim);
-    arm.position.set(Math.cos(a) * 1.04, 0.39, Math.sin(a) * 1.04);
-    arm.rotation.y = -a;
-    station.add(arm);
-    const lower = arm.clone();
-    lower.scale.set(0.4, 1, 0.7);
-    lower.position.set(Math.cos(a) * 0.49, -0.85, Math.sin(a) * 0.49);
-    station.add(lower);
-  }
-  const matrix = new THREE.Object3D();
-  const panels = new THREE.InstancedMesh(new THREE.BoxGeometry(0.12, 0.24, 0.19), metal, 96);
-  const lights = new THREE.InstancedMesh(new THREE.BoxGeometry(0.052, 0.026, 0.008), windows, 192);
-  for (let i = 0; i < 96; i++) {
-    const a = (i * TAU) / 96;
-    matrix.position.set(Math.cos(a) * 2.12, 0.47, Math.sin(a) * 2.12);
-    matrix.rotation.set(0, -a, 0);
-    matrix.scale.set(1, 1 + (i % 7 === 0 ? 0.45 : 0), 1);
-    matrix.updateMatrix();
-    panels.setMatrixAt(i, matrix.matrix);
-    for (let row = 0; row < 2; row++) {
-      matrix.position.set(Math.cos(a) * 2.255, 0.38 + row * 0.14, Math.sin(a) * 2.255);
-      matrix.rotation.set(0, Math.PI / 2 - a, 0);
-      matrix.scale.set(1, 1, 1);
-      matrix.updateMatrix();
-      lights.setMatrixAt(i * 2 + row, matrix.matrix);
-    }
-  }
-  station.add(panels, lights);
-  const ribs = new THREE.InstancedMesh(new THREE.BoxGeometry(0.018, 0.34, 0.32), trim, 144);
-  const equipment = new THREE.InstancedMesh(new THREE.BoxGeometry(0.1, 0.07, 0.17), dark, 96);
-  for (let i = 0; i < 144; i++) {
-    const a = (i * TAU) / 144;
-    matrix.position.set(Math.cos(a) * 2.12, 0.47, Math.sin(a) * 2.12);
-    matrix.rotation.set(0, -a, 0);
-    matrix.updateMatrix();
-    ribs.setMatrixAt(i, matrix.matrix);
-  }
-  for (let i = 0; i < 96; i++) {
-    const a = (i * TAU) / 96;
-    matrix.position.set(Math.cos(a) * 2.08, 0.7 + (i % 3) * 0.025, Math.sin(a) * 2.08);
-    matrix.rotation.set(0, -a, 0);
-    matrix.updateMatrix();
-    equipment.setMatrixAt(i, matrix.matrix);
-  }
-  station.add(ribs, equipment);
-  for (let i = 0; i < 12; i++) {
-    const a = (i * TAU) / 12;
-    const pipe = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.016, 1.9, 6), trim);
-    pipe.position.set(Math.cos(a) * 0.235, -0.2, Math.sin(a) * 0.235);
-    station.add(pipe);
-  }
-  for (let i = 0; i < 6; i++) {
-    const a = (i * TAU) / 6;
-    const strut = new THREE.Mesh(new THREE.BoxGeometry(1.65, 0.022, 0.026), metal);
-    strut.position.set(Math.cos(a) * 1.07, 0.15, Math.sin(a) * 1.07);
-    strut.rotation.set(0, -a, 0.27);
-    station.add(strut);
-  }
-
-  const smallLights = new THREE.InstancedMesh(
-    new THREE.BoxGeometry(0.035, 0.026, 0.018),
-    windows,
-    48,
-  );
-  for (let i = 0; i < 48; i++) {
-    const a = (i * TAU) / 48;
-    matrix.position.set(Math.cos(a) * 0.91, -0.83, Math.sin(a) * 0.91);
-    matrix.rotation.set(0, Math.PI / 2 - a, 0);
-    matrix.updateMatrix();
-    smallLights.setMatrixAt(i, matrix.matrix);
-  }
-  station.add(smallLights);
-  const beaconPositions: [number, number, number][] = [
-    [2.23, 0.75, 0],
-    [-1.4, 0.73, 1.7],
-    [0.3, 0.73, -2.15],
-    [-0.8, -0.72, 0.1],
-  ];
-  beaconPositions.forEach(([x, y, z]) => {
-    const beacon = new THREE.Mesh(new THREE.SphereGeometry(0.035, 8, 8), red);
-    beacon.position.set(x, y, z);
-    station.add(beacon);
-  });
-  const redLight = new THREE.PointLight('#ff2547', 5, 5, 2);
-  redLight.position.set(-1, 0.7, 1.8);
-  placement.add(redLight);
-  const sun = new THREE.DirectionalLight('#ffd5ba', 5);
-  sun.position.set(-5, 5, 10);
-  root.add(sun);
-  const fill = new THREE.DirectionalLight('#729bd5', 2.3);
-  fill.position.set(3, 6, 10);
-  root.add(fill, new THREE.AmbientLight('#8aa1bf', 0.65));
-  return { root, earth, station, red };
+  const { station, red, glint, textures: ownedTextures } = buildStation();
+  placement.add(station, glint);
+  const rim = new THREE.PointLight('#ffb5a9', 26 * stationScale ** 2, 3.5 * stationScale, 2);
+  rim.position.set(-3.15, 0.35, 0.75);
+  placement.add(rim);
+  const sun = new THREE.DirectionalLight('#ffd4c6', 5);
+  sun.position.set(-4, 0.5, 20);
+  sun.target.position.copy(placement.position);
+  const fill = new THREE.DirectionalLight('#819dc5', 0.75);
+  fill.position.set(6, 8, 24);
+  fill.target.position.copy(placement.position);
+  const bounce = new THREE.DirectionalLight('#db6a80', 0.8);
+  bounce.position.set(5, -5, 21);
+  bounce.target.position.copy(placement.position);
+  root.add(sun, sun.target, fill, fill.target, bounce, bounce.target);
+  return { root, earth, station, red, ownedTextures };
 }
 export type SceneModel = ReturnType<typeof buildScene>;
 export function animateScene(model: SceneModel, seconds: number) {
@@ -216,12 +115,13 @@ export function disposeScene(model: SceneModel) {
   const materials = new Set<THREE.Material>();
   model.root.traverse((object) => {
     if (object instanceof THREE.InstancedMesh) object.dispose();
-    if (isMesh(object)) {
-      geometries.add(object.geometry);
+    if (isMesh(object)) geometries.add(object.geometry);
+    if (isMesh(object) || object instanceof THREE.Sprite) {
       for (const material of Array.isArray(object.material) ? object.material : [object.material])
         materials.add(material);
     }
   });
   geometries.forEach((g) => g.dispose());
   materials.forEach((m) => m.dispose());
+  model.ownedTextures.forEach((texture) => texture.dispose());
 }

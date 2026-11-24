@@ -26,23 +26,31 @@ describe('React Three Fiber integration', () => {
     view.rerender(<SpaceCanvas active={false} onReady={onReady} onFailure={onFailure} />);
     expect(screen.getByTestId('frame-loop')).toHaveTextContent('demand');
   });
-  it('advances real objects with delta, keeps them fixed while paused, and releases resources on unmount', async () => {
-    const onReady = vi.fn<() => void>(),
-      onFailure = vi.fn<() => void>();
-    const renderer = await create(<SceneObjects active onReady={onReady} onFailure={onFailure} />);
-    expect(onReady).toHaveBeenCalled();
-    const group = renderer.scene.instance;
-    const earth = group.getObjectByName('Earth')!;
-    const station = group.getObjectByName('Orbital station')!;
-    const y = earth.rotation.y;
-    const s = station.rotation.y;
-    await renderer.advanceFrames(4, 0.02);
-    expect(earth.rotation.y).toBeGreaterThan(y);
-    expect(station.rotation.y).toBeLessThan(s);
-    await renderer.update(<SceneObjects active={false} onReady={onReady} onFailure={onFailure} />);
-    const stopped = earth.rotation.y;
-    await renderer.advanceFrames(4, 0.02);
-    expect(earth.rotation.y).toBe(stopped);
-    await renderer.unmount();
-  });
+  it.each([false, true])(
+    'animates and disposes real objects for compact=%s, keeping them fixed when paused',
+    async (compact) => {
+      vi.stubGlobal('matchMedia', () => ({ matches: compact }));
+      const onReady = vi.fn<() => void>(),
+        onFailure = vi.fn<() => void>();
+      const renderer = await create(
+        <SceneObjects active onReady={onReady} onFailure={onFailure} />,
+      );
+      expect(onReady).toHaveBeenCalled();
+      const group = renderer.scene.instance;
+      const earth = group.getObjectByName('Earth')!;
+      const station = group.getObjectByName('Orbital station')!;
+      const y = earth.rotation.y;
+      const s = station.rotation.y;
+      await renderer.advanceFrames(4, 0.02);
+      expect(earth.rotation.y).toBeGreaterThan(y);
+      expect(station.rotation.y).toBeLessThan(s);
+      await renderer.update(
+        <SceneObjects active={false} onReady={onReady} onFailure={onFailure} />,
+      );
+      const stopped = earth.rotation.y;
+      await renderer.advanceFrames(4, 0.02);
+      expect(earth.rotation.y).toBe(stopped);
+      await renderer.unmount();
+    },
+  );
 });

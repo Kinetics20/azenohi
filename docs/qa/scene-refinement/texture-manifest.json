@@ -1,0 +1,47 @@
+[
+  {
+    "path": "design/textures/earth-clouds-8k.jpg",
+    "bytes": 11619184,
+    "sha256": "c792eca228989d36ebb45d3ea6ff1198be5e21a25d70d2fbcb2124ffd14ba7f5"
+  },
+  {
+    "path": "design/textures/earth-day-8k.jpg",
+    "bytes": 4565076,
+    "sha256": "88ab060b6e7d241cfc590c69f528fab2b3247b738d40124cb590999a6fe44abc"
+  },
+  {
+    "path": "design/textures/earth-night-8k.jpg",
+    "bytes": 3144468,
+    "sha256": "9894e83a585a22c1c425e7ca4f987a9ba625bf08ecee45d3c9dcacae3c2ad5f7"
+  },
+  {
+    "path": "web/public/textures/earth-clouds.webp",
+    "bytes": 1292682,
+    "sha256": "e22ba2311541d357ab868aba94077c18f91ec8a070548c10c0fc637ed0fc85c6"
+  },
+  {
+    "path": "web/public/textures/earth-day.webp",
+    "bytes": 383810,
+    "sha256": "44ee506d164779ad234e725ba5ab0c375a84f22712827b0371dae1808e8bdebb"
+  },
+  {
+    "path": "web/public/textures/earth-night.webp",
+    "bytes": 283402,
+    "sha256": "58556c0d8e8588886ca242bbfe79351355a985ff2bc925ef00862fecda0217b7"
+  },
+  {
+    "path": "web/public/textures/mobile/earth-clouds.webp",
+    "bytes": 356766,
+    "sha256": "3f3450a5f5ccedaa4cf7146eb8c40e57c1b1dd1cf6143d84cdf12d0b913c23fe"
+  },
+  {
+    "path": "web/public/textures/mobile/earth-day.webp",
+    "bytes": 99574,
+    "sha256": "a4e27191f02eeee0585a04818c2eda5f97084a4e21fde0235604c63e76825cb9"
+  },
+  {
+    "path": "web/public/textures/mobile/earth-night.webp",
+    "bytes": 68528,
+    "sha256": "b43358f32becbfcc223a12c29c91b621be9334fee6e69f38394ca0fe4c1bfd64"
+  }
+]

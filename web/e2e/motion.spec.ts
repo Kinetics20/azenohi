@@ -48,6 +48,32 @@ test('missing texture gracefully restores the poster', async ({ page }) => {
   await page.getByRole('link', { name: 'Team', exact: true }).click();
   await expect(page).toHaveURL(/\/team$/);
 });
+test('compact scene loads smaller maps, pauses, and keeps its quality tier across resizing', async ({
+  page,
+}) => {
+  const textures: string[] = [];
+  page.on('request', (request) => {
+    if (request.url().includes('/textures/')) textures.push(new URL(request.url()).pathname);
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await expect(page.locator('[data-scene]')).toHaveAttribute('data-scene', 'ready');
+  expect(textures.toSorted()).toEqual([
+    '/textures/mobile/earth-clouds.webp',
+    '/textures/mobile/earth-day.webp',
+    '/textures/mobile/earth-night.webp',
+  ]);
+  await page.getByRole('button', { name: 'Pause animation' }).click();
+  await page.waitForTimeout(150);
+  const paused = await page.locator('canvas').screenshot();
+  await page.waitForTimeout(300);
+  expect((await page.locator('canvas').screenshot()).equals(paused)).toBe(true);
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await expect(page.locator('[data-scene]')).toHaveAttribute('data-scene', 'ready');
+  expect(textures).toHaveLength(3);
+  await page.getByRole('link', { name: 'Projects', exact: true }).click();
+  await expect(page.locator('canvas')).toHaveCount(0);
+});
 test('WebGL disabled leaves working content and navigation', async ({ page }) => {
   await page.addInitScript(() => {
     Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {

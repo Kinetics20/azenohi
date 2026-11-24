@@ -34,3 +34,22 @@ frames at 0–7 s every second, 0/3.33/6.67/9.96 s, and magnified station frames
   non-geographic art direction, no expensive bloom pipeline.
 
 Browser comparison and measured performance are recorded in verification.md.
+
+## Second visual pass
+
+The user's follow-up requested closer station geometry, materials and lighting.
+The original live model exposed the top of a rounded ring. Both supplied sources
+show the underside of a plated annular hull. The fixed X tilt is now negative,
+with a shallow Z cant; the wider hull extends beyond the right desktop edge.
+A separate axial tower and closed docking deck retain the silhouette throughout
+rotation. Sparse, irregular windows replace uniform bright rows. Broad cool
+reflections, warm key light, a local pink rim reflection and subdued Earth bounce
+match the sources' direction and palette. The glint stays in the lighting frame
+while the metal station rotates through it. No bloom/post-processing dependency.
+
+Earth and station periods remain 210 s and 84 s. The cloud and city detail is
+art-directed with repeated map coordinates, so it is not a geographic simulation.
+The horizon curve was fitted to three points in home.png and shaded with the
+orthographic view direction. Portrait screens use a smaller, raised station and
+2K maps; desktop uses 4K. Initial quality is retained during viewport resizing to
+avoid interrupting the running scene. See scene-refinement.md for review.

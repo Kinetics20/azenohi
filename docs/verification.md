@@ -17,7 +17,7 @@ be reproduced with `git rev-parse HEAD`. No public hosting deployment was made.
 | 2 — Specification | Spec Kit resolver used; English specification, plan, checklist, tasks and ADR 001. No extra branch, reinitialization or blocking clarification. |
 | 3 — Adaptation | Standalone frontend; removed API CRUD, query client, backend services, proxy, obsolete containers, AI tools and dead hook commands. Strict typing, lint, format and four 90% coverage gates preserved. |
 | 4 — Static Home | Separate generated poster, sky and transparent foreground; actual HTML text/logo/navigation; responsive layout. |
-| 5 — Motion | Procedural Three.js Earth and station; instanced modules/windows, night masking, point light and emissive beacons. Browser recording and separate motion tests. |
+| 5 — Motion | Procedural Three.js Earth and station; instanced hull plating/trusses/windows, metal reflection maps, twilight shading, rim lighting and emissive beacons. Browser recording and separate motion tests. |
 | 6 — Views | Home, Team, Projects, Journey, Risk Miner and five honest project overview routes, plus 404. Sixth card uses the supplied Risk Miner thumbnail. |
 | 7 — Refinement | Responsive screenshots at all five requested widths; cross-browser axe and keyboard checks; motion failures; performance and repeated-navigation inspection. |
 | 8 — Documentation | English README, local technology icons, real screenshots/banner/video, setup, content review, asset attribution and license notices. |
@@ -27,13 +27,13 @@ be reproduced with `git rev-parse HEAD`. No public hosting deployment was made.
 
 - `npm --prefix web ci`: PASS with Node 26.13.1 and npm 12.2.2.
 - `npm --prefix web run check`: PASS — type-aware Oxlint, Prettier, strict
-  TypeScript, 22 unit tests and production build.
-- Coverage: statements **99.28%**, branches **97.43%**, functions **98.38%**,
-  lines **99.22%**. All four thresholds remain at 90%; no new coverage exclusions.
-- `npm --prefix web run test:e2e`: PASS, **24 passed / 12 intentional skips**.
+  TypeScript, 23 unit tests and production build.
+- Coverage: statements **99.48%**, branches **98.19%**, functions **98.66%**,
+  lines **99.43%**. All four thresholds remain at 90%; no new coverage exclusions.
+- `npm --prefix web run test:e2e`: PASS, **25 passed / 15 intentional skips**.
   Chromium, Firefox, WebKit and mobile Chromium run the five shared scenarios.
-  Four real WebGL/failure scenarios run only on desktop Chromium. The other
-  three projects each skip these four tests; they still run layout and axe.
+  Five real WebGL/failure scenarios run only on desktop Chromium. The other
+  three projects each skip these five tests; they still run layout and axe.
 - `make spec-check`: PASS.
 - `make hooks`: installed local hooks. `uvx --from pre-commit pre-commit run
   --all-files`: all five gates PASS, including production-browser verification.
@@ -42,7 +42,7 @@ be reproduced with `git rev-parse HEAD`. No public hosting deployment was made.
 - README: all 27 local references/asset paths checked; banners, gallery images,
   badges and recording exist. No invented live-demo URL or CI badge.
 
-Raw check and E2E logs are in `docs/qa/`. HTML/trace reports remain locally ignored
+Current refinement check and E2E logs are in `docs/qa/scene-refinement/`; initial-delivery logs remain in `docs/qa/`. HTML/trace reports remain locally ignored
 under web/playwright-report and web/test-results.
 
 ## Browser and accessibility evidence
@@ -89,7 +89,11 @@ This is a reference-based recreation, not a pixel-identical rendering. The live
 station is a custom procedural model with simpler surfaces than the cinematic
 source; Earth textures are attributed maps, not a reproduction of the source
 film's generated surface. The immediate poster is more photographic than the
-live geometry. These distinctions are deliberate and visible in the recording.
+live geometry. The follow-up rebuilt the station with bevelled plated hulls,
+box trusses, a detailed axial tower and docking machinery; corrected its underside
+view; and added warm/cool reflections and surface roughness. See
+[the visual refinement report](scene-refinement.md) for before/after crops,
+portrait framing and the residual differences.
 
 ## Performance
 
@@ -102,21 +106,25 @@ percentiles or proof of performance on real phones.
 
 | Profile | LCP | CLS | Frame cadence | Resource transfer |
 | --- | --- | --- | --- | --- |
-| Desktop 1440×900, DPR 1, GPU scene | 136 ms | 0.00270 | 60.0 FPS; p95 16.7 ms | 1,154,555 bytes |
-| Mobile viewport 390×844, DPR 2, same desktop GPU | 140 ms | 0.0000655 | 60.0 FPS; p95 16.7 ms | 1,154,555 bytes |
-| Reduced motion, desktop poster | 84 ms | 0.00270 | No animated canvas; browser cadence 60 FPS | 373,434 bytes |
+| Desktop 1440×900, DPR 1, GPU scene | 140 ms | 0.00270 | 60.0 FPS; p95 16.7 ms | 2,742,335 bytes |
+| Mobile viewport 390×844, DPR 2, same desktop GPU | 216 ms | 0.0000655 | 60.0 FPS; p95 16.7 ms | 1,307,309 bytes |
+| Reduced motion, desktop poster | 80 ms | 0.00270 | No animated canvas; browser cadence 60 FPS | 373,496 bytes |
 
 An earlier explicitly forced SwiftShader run before cloud texture optimization
 recorded 38.6 desktop / 42.6 mobile-emulation FPS. This demonstrates a functioning
 software fallback, but does not meet the desktop 60 FPS target. The GPU profile
 meets the local target. No physical mobile device was tested.
 
-Cloud texture was reduced to 1024×512, saving approximately 496 KB. Three.js/R3F
-is lazy-loaded; Vite still reports a large scene chunk (about 926 KB raw / 245 KB
-gzip). It is not requested for reduced-motion Home or the other routes.
+The refinement replaces the initial coarse maps with 4096×2048 desktop variants
+and 2048×1024 mobile variants. Higher visual detail increases desktop transfer;
+the smaller mobile maps save 1.44 MB against the desktop profile. Three.js/R3F
+remains lazy-loaded; Vite reports a scene chunk of 930 KB raw / 248 KB gzip.
+It is not requested for reduced-motion Home or the other routes. LCP refers to
+the immediate HTML/artwork presentation, not a scene-completion timing.
 
 `docs/qa/performance.json` contains complete profile data and 12 SPA navigation
-samples. A longer 40-cycle run is in `docs/qa/navigation-memory.json`. Every exit
+samples from the refined scene (6.23 MB first-cycle JS heap, 8.23 MB at cycle 12).
+A longer 40-cycle run from the initial delivery is in `docs/qa/navigation-memory.json`. Every exit
 removes the canvas. The measurement allows R3F's delayed renderer cleanup before
 explicit GC; cached textures are intentionally retained once for reuse. JS heap increased from
 about 6.1 MB on the first cycle to 8.4 MB on cycle 40 (about 0.33 MB over the

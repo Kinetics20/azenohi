@@ -1,0 +1,56 @@
+npm notice run azenohi@0.1.0 test:e2e
+npm notice run playwright test
+
+Running 40 tests using 1 worker
+
+(node:45136) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › e2e/motion.spec.ts:13:1 › real WebGL changes Earth and station pixels independently, pauses and survives context loss (22.5s)
+  ✓   2 [chromium] › e2e/motion.spec.ts:43:1 › missing texture gracefully restores the poster (1.3s)
+  ✓   3 [chromium] › e2e/motion.spec.ts:51:1 › compact scene loads smaller maps, pauses, and keeps its quality tier across resizing (3.6s)
+  ✓   4 [chromium] › e2e/motion.spec.ts:77:1 › WebGL disabled leaves working content and navigation (713ms)
+  ✓   5 [chromium] › e2e/motion.spec.ts:90:1 › slow scene assets never block navigation (419ms)
+  ✓   6 [chromium] › e2e/portfolio.spec.ts:11:1 › all core routes refresh, remain accessible and load their images (2.9s)
+  ✓   7 [chromium] › e2e/portfolio.spec.ts:36:1 › navigation, project order, details, browser history and 404 (1.4s)
+  ✓   8 [chromium] › e2e/portfolio.spec.ts:65:1 › keyboard skip link and mobile menu Escape (509ms)
+  ✓   9 [chromium] › e2e/portfolio.spec.ts:85:1 › responsive layouts at all acceptance widths (8.3s)
+  ✓  10 [chromium] › e2e/portfolio.spec.ts:103:1 › no API, external runtime requests or 3D chunk in reduced motion (376ms)
+(node:45693) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  11 [firefox] › e2e/motion.spec.ts:13:1 › real WebGL changes Earth and station pixels independently, pauses and survives context loss
+  -  12 [firefox] › e2e/motion.spec.ts:43:1 › missing texture gracefully restores the poster
+  -  13 [firefox] › e2e/motion.spec.ts:51:1 › compact scene loads smaller maps, pauses, and keeps its quality tier across resizing
+  -  14 [firefox] › e2e/motion.spec.ts:77:1 › WebGL disabled leaves working content and navigation
+  -  15 [firefox] › e2e/motion.spec.ts:90:1 › slow scene assets never block navigation
+  ✓  16 [firefox] › e2e/portfolio.spec.ts:11:1 › all core routes refresh, remain accessible and load their images (4.5s)
+  ✓  17 [firefox] › e2e/portfolio.spec.ts:36:1 › navigation, project order, details, browser history and 404 (1.9s)
+  ✓  18 [firefox] › e2e/portfolio.spec.ts:65:1 › keyboard skip link and mobile menu Escape (653ms)
+  ✓  19 [firefox] › e2e/portfolio.spec.ts:85:1 › responsive layouts at all acceptance widths (2.6s)
+  ✓  20 [firefox] › e2e/portfolio.spec.ts:103:1 › no API, external runtime requests or 3D chunk in reduced motion (441ms)
+(node:46247) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  21 [webkit] › e2e/motion.spec.ts:13:1 › real WebGL changes Earth and station pixels independently, pauses and survives context loss
+  -  22 [webkit] › e2e/motion.spec.ts:43:1 › missing texture gracefully restores the poster
+  -  23 [webkit] › e2e/motion.spec.ts:51:1 › compact scene loads smaller maps, pauses, and keeps its quality tier across resizing
+  -  24 [webkit] › e2e/motion.spec.ts:77:1 › WebGL disabled leaves working content and navigation
+  -  25 [webkit] › e2e/motion.spec.ts:90:1 › slow scene assets never block navigation
+  ✓  26 [webkit] › e2e/portfolio.spec.ts:11:1 › all core routes refresh, remain accessible and load their images (4.1s)
+  ✓  27 [webkit] › e2e/portfolio.spec.ts:36:1 › navigation, project order, details, browser history and 404 (2.2s)
+  ✓  28 [webkit] › e2e/portfolio.spec.ts:65:1 › keyboard skip link and mobile menu Escape (800ms)
+  ✓  29 [webkit] › e2e/portfolio.spec.ts:85:1 › responsive layouts at all acceptance widths (4.2s)
+  ✓  30 [webkit] › e2e/portfolio.spec.ts:103:1 › no API, external runtime requests or 3D chunk in reduced motion (1.2s)
+(node:47077) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  31 [mobile-chromium] › e2e/motion.spec.ts:13:1 › real WebGL changes Earth and station pixels independently, pauses and survives context loss
+  -  32 [mobile-chromium] › e2e/motion.spec.ts:43:1 › missing texture gracefully restores the poster
+  -  33 [mobile-chromium] › e2e/motion.spec.ts:51:1 › compact scene loads smaller maps, pauses, and keeps its quality tier across resizing
+  -  34 [mobile-chromium] › e2e/motion.spec.ts:77:1 › WebGL disabled leaves working content and navigation
+  -  35 [mobile-chromium] › e2e/motion.spec.ts:90:1 › slow scene assets never block navigation
+  ✓  36 [mobile-chromium] › e2e/portfolio.spec.ts:11:1 › all core routes refresh, remain accessible and load their images (2.2s)
+  ✓  37 [mobile-chromium] › e2e/portfolio.spec.ts:36:1 › navigation, project order, details, browser history and 404 (1.5s)
+  ✓  38 [mobile-chromium] › e2e/portfolio.spec.ts:65:1 › keyboard skip link and mobile menu Escape (578ms)
+  ✓  39 [mobile-chromium] › e2e/portfolio.spec.ts:85:1 › responsive layouts at all acceptance widths (1.6s)
+  ✓  40 [mobile-chromium] › e2e/portfolio.spec.ts:103:1 › no API, external runtime requests or 3D chunk in reduced motion (562ms)
+
+  15 skipped
+  25 passed (1.2m)

@@ -1,11 +1,21 @@
 import { describe, expect, it, vi } from 'vitest';
-import { BoxGeometry, Mesh, MeshBasicMaterial, Texture } from 'three';
+import { BoxGeometry, InstancedMesh, Mesh, MeshBasicMaterial, Sprite, Texture } from 'three';
 import { animateScene, buildScene, disposeScene } from './sceneModel';
 describe('Orbital scene', () => {
   it('builds independent geometry, advances the Earth and station, and disposes GPU resources', () => {
-    const model = buildScene({ day: new Texture(), night: new Texture(), clouds: new Texture() });
+    const day = new Texture();
+    const model = buildScene({ day, night: new Texture(), clouds: new Texture() });
     expect(model.earth.geometry.type).toBe('SphereGeometry');
-    expect(model.station.children.length).toBeGreaterThan(30);
+    expect(model.station.getObjectByName('Habitat pressure hull')).toBeInstanceOf(Mesh);
+    expect(model.station.getObjectByName('Docking deck')).toBeInstanceOf(Mesh);
+    expect(model.station.parent!.rotation.x).toBeLessThan(0);
+    const plating = model.station.getObjectByName('Hull plating');
+    const trusses = model.station.getObjectByName('Trusses and ribs');
+    if (!(plating instanceof InstancedMesh) || !(trusses instanceof InstancedMesh))
+      throw new Error('Hull details must use instanced geometry');
+    expect(plating.count).toBeGreaterThan(1000);
+    expect(Number.isFinite(plating.boundingSphere!.radius)).toBe(true);
+    expect(trusses.geometry).toBe(plating.geometry);
     const tilt = model.station.parent!.rotation.toArray();
     animateScene(model, 10);
     expect(model.earth.rotation.y).toBeGreaterThan(0.9);
@@ -16,6 +26,13 @@ describe('Orbital scene', () => {
     expect(model.red.emissiveIntensity).not.toEqual(light);
     const disposeGeometry = vi.spyOn(model.earth.geometry, 'dispose');
     const disposeMaterial = vi.spyOn(model.red, 'dispose');
+    const disposeInstances = vi.spyOn(plating, 'dispose');
+    const disposeSharedBox = vi.spyOn(plating.geometry, 'dispose');
+    const disposeTextures = model.ownedTextures.map((texture) => vi.spyOn(texture, 'dispose'));
+    const disposeBorrowedTexture = vi.spyOn(day, 'dispose');
+    const glint = model.root.getObjectByName('Warm rim reflection');
+    if (!(glint instanceof Sprite)) throw new Error('Missing rim reflection');
+    const disposeGlint = vi.spyOn(glint.material, 'dispose');
     const materials = [new MeshBasicMaterial(), new MeshBasicMaterial()];
     const extra = new Mesh(new BoxGeometry(), materials);
     model.root.add(extra);
@@ -24,5 +41,10 @@ describe('Orbital scene', () => {
     expect(disposeGeometry).toHaveBeenCalledOnce();
     expect(disposeMaterial).toHaveBeenCalledOnce();
     expect(extraDispose).toHaveBeenCalledOnce();
+    expect(disposeInstances).toHaveBeenCalledOnce();
+    expect(disposeSharedBox).toHaveBeenCalledOnce();
+    expect(disposeGlint).toHaveBeenCalledOnce();
+    disposeTextures.forEach((dispose) => expect(dispose).toHaveBeenCalledOnce());
+    expect(disposeBorrowedTexture).not.toHaveBeenCalled();
   });
 });

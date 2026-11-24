@@ -25,8 +25,8 @@ from the concepts require owner review before public release. See
 
 ## Experience
 
-- **Home** — layered artwork, independently rotating Earth and station, illuminated
-  windows, restrained beacon lights, pause/resume and immediate static poster.
+- **Home** — layered artwork, independently rotating Earth and station, plated hulls,
+  trusses, warm rim reflections, irregular windows, pause/resume and a static poster.
 - **Team** — twelve supplied portraits and names, responsive cards and the
   reference's “14+” membership statement.
 - **Projects** — six projects, with the generated Risk Miner illustration in the
@@ -47,8 +47,8 @@ not used by the frontend.
 ## Screenshots
 
 These are captures of the implemented application, not the input mockups.
-The gallery uses reduced motion for repeatable layout capture; the banner and
-browser recording show the actual procedural scene.
+The table uses reduced motion for repeatable layout capture; the banner, mobile
+Home image and browser recording show the actual procedural scene.
 
 | Team | Projects |
 | --- | --- |
@@ -56,7 +56,7 @@ browser recording show the actual procedural scene.
 | Journey | Risk Miner |
 | ![Journey timeline](docs/assets/screenshots/journey-1672.webp) | ![Risk Miner project details](docs/assets/screenshots/risk-miner-1672.webp) |
 
-[Mobile Home](docs/assets/screenshots/home-390.webp) ·
+[Mobile Home](docs/assets/screenshots/home-live-mobile.webp) ·
 [Mobile Team](docs/assets/screenshots/team-390.webp) ·
 [Mobile Projects](docs/assets/screenshots/projects-390.webp) ·
 [Mobile Journey](docs/assets/screenshots/journey-390.webp) ·
@@ -118,8 +118,8 @@ coverage, and the production build. All four coverage thresholds remain **90%**.
 Browser dependencies must also be available on Linux; Playwright's
 `install-deps` command can install them with system package permissions.
 
-Verified locally: **22 unit tests** and **24 browser tests** passed. Twelve
-intentional skips are the four dedicated WebGL scenarios on the three other
+Verified locally: **23 unit tests** and **25 browser tests** passed. Fifteen
+intentional skips are the five dedicated WebGL scenarios on the three other
 browser projects; the main layout, keyboard and axe scenarios run on all four.
 See [verification report](docs/verification.md) for coverage, performance,
 profiles, visual review, warnings and limitations. No GitHub Actions or CI badge.
@@ -173,8 +173,11 @@ five project detail views deliberately contain only the supplied descriptions;
 add verified links and richer project information there when available.
 
 The scene is a separate chunk, loaded only on Home when motion is permitted.
-Repeated station modules and windows are instanced. A night-side mask controls
-city emission, and a fixed tilt is separate from local station rotation.
+Repeated station plates, trusses, hardware and windows share instanced geometry.
+Procedural reflection/roughness maps shade the metal; cloud occlusion and twilight
+color shade Earth. A fixed underside view is separate from local station rotation.
+Desktop uses 4K Earth maps; portrait screens use 2K maps and a smaller, raised station.
+See the [scene refinement comparison](docs/scene-refinement.md).
 [Motion reference notes](docs/motion-reference.md) distinguish observation from
 artistic approximations; the short source video does not establish exact periods.
 

@@ -1,18 +1,21 @@
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { TextureLoader } from 'three';
 import { animateScene, buildScene, disposeScene } from './sceneModel';
 export type SpaceProps = { active: boolean; onReady: () => void; onFailure: () => void };
 export function SceneObjects({ active, onReady, onFailure }: SpaceProps) {
+  // Fix the tier at mount, so resizing never interrupts an already running scene.
+  const [compact] = useState(() => window.matchMedia('(max-width: 700px)').matches);
+  const directory = compact ? '/textures/mobile' : '/textures';
   const [day, night, clouds] = useLoader(TextureLoader, [
-    '/textures/earth-day.webp',
-    '/textures/earth-night.webp',
-    '/textures/earth-clouds.webp',
+    `${directory}/earth-day.webp`,
+    `${directory}/earth-night.webp`,
+    `${directory}/earth-clouds.webp`,
   ]);
-  const model = useMemo(
-    () => buildScene({ day: day!, night: night!, clouds: clouds! }),
-    [day, night, clouds],
-  );
+  const model = useMemo(() => {
+    for (const texture of [day!, night!, clouds!]) texture.anisotropy = 8;
+    return buildScene({ day: day!, night: night!, clouds: clouds! }, compact);
+  }, [day, night, clouds, compact]);
   const { viewport, gl } = useThree();
   const time = useRef(0);
   const scale = Math.max(viewport.width / 16.72, viewport.height / 9.41);

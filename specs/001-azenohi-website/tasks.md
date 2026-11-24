@@ -10,3 +10,11 @@
 - [x] T07 Run responsive, accessibility, browser, failure, motion and performance checks.
 - [x] T08 Create English README with genuine screenshots, banner, badges and credits.
 - [x] T09 Complete local gates, commit/push and verify remote SHA and only main.
+
+## Follow-up: Home scene fidelity
+
+- [x] T10 Compare live geometry with home.png and enlarged decoded film frames.
+- [x] T11 Rebuild the station hull, trusses, docking deck, tower and instanced detail.
+- [x] T12 Refine metal surfaces, directional/rim lighting, windows and atmosphere.
+- [x] T13 Review browser iterations and portrait framing; add mobile texture tier.
+- [x] T14 Complete checks, performance measurement, evidence refresh and delivery.
