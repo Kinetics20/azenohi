@@ -1,0 +1,48 @@
+import type * as FiberModule from '@react-three/fiber';
+import { render, screen } from '@testing-library/react';
+import { create } from '@react-three/test-renderer';
+import { describe, expect, it, vi } from 'vitest';
+import { Texture } from 'three';
+import type { ReactNode } from 'react';
+import SpaceCanvas, { SceneObjects } from './SpaceCanvas';
+vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT', true);
+const textures = [new Texture(), new Texture(), new Texture()];
+vi.mock('@react-three/fiber', async (original) => {
+  const actual = await original<typeof FiberModule>();
+  return {
+    ...actual,
+    useLoader: () => textures,
+    Canvas: ({ frameloop }: { children: ReactNode; frameloop: string }) => (
+      <div data-testid="frame-loop">{frameloop}</div>
+    ),
+  };
+});
+describe('React Three Fiber integration', () => {
+  it('selects an active or demand frame loop', () => {
+    const onReady = vi.fn<() => void>(),
+      onFailure = vi.fn<() => void>();
+    const view = render(<SpaceCanvas active onReady={onReady} onFailure={onFailure} />);
+    expect(screen.getByTestId('frame-loop')).toHaveTextContent('always');
+    view.rerender(<SpaceCanvas active={false} onReady={onReady} onFailure={onFailure} />);
+    expect(screen.getByTestId('frame-loop')).toHaveTextContent('demand');
+  });
+  it('advances real objects with delta, keeps them fixed while paused, and releases resources on unmount', async () => {
+    const onReady = vi.fn<() => void>(),
+      onFailure = vi.fn<() => void>();
+    const renderer = await create(<SceneObjects active onReady={onReady} onFailure={onFailure} />);
+    expect(onReady).toHaveBeenCalled();
+    const group = renderer.scene.instance;
+    const earth = group.getObjectByName('Earth')!;
+    const station = group.getObjectByName('Orbital station')!;
+    const y = earth.rotation.y;
+    const s = station.rotation.y;
+    await renderer.advanceFrames(4, 0.02);
+    expect(earth.rotation.y).toBeGreaterThan(y);
+    expect(station.rotation.y).toBeLessThan(s);
+    await renderer.update(<SceneObjects active={false} onReady={onReady} onFailure={onFailure} />);
+    const stopped = earth.rotation.y;
+    await renderer.advanceFrames(4, 0.02);
+    expect(earth.rotation.y).toBe(stopped);
+    await renderer.unmount();
+  });
+});
